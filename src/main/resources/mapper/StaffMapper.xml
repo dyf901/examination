@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.examination.dao.StaffDao">
+    <!--增加员工信息-->
+    <insert id="InsertStaff" parameterType="java.util.Map">
+      INSERT INTO `staff`(`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype`, `entry_time`)
+      VALUES ( #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype}, #{entry_time});
+    </insert>
+
+    <!--删除员工信息-->
+    <delete id="DeleteStaff" parameterType="java.util.Map">
+        DELETE FROM `staff` WHERE `id`=#{id}
+    </delete>
+
+    <!--修改员工信息-->
+    <update id="UpdateStaff" parameterType="java.util.Map">
+        update `staff`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="staff_name!=null and staff_name!=''">
+                `staff_name`=#{staff_name},
+            </if>
+            <if test="staff_age!=null and staff_age!=''">
+                `staff_age`=#{staff_age},
+            </if>
+            <if test="staff_img!=null and staff_img!=''">
+                `staff_img`=#{staff_img},
+            </if>
+            <if test="staff_sex!=null and staff_sex!=''">
+                `staff_sex`=#{staff_sex},
+            </if>
+            <if test="staff_nation!=null and staff_nation!=''">
+                `staff_nation`=#{staff_nation},
+            </if>
+            <if test="staff_card!=null and staff_card!=''">
+                `staff_card`=#{staff_card},
+            </if>
+            <if test="staff_address!=null and staff_address!=''">
+                `staff_address`=#{staff_address},
+            </if>
+            <if test="staff_phone!=null and staff_phone!=''">
+                `staff_phone`=#{staff_phone},
+            </if>
+            <if test="worktype!=null and worktype!=''">
+                `worktype`=#{worktype},
+            </if>
+        </trim>
+        where `id`=#{id}
+    </update>
+
+    <!--分页模糊查询员工信息-->
+    <select id="FindStaff" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
+        <bind name="page" value="pageSize*(pageNo-1)"></bind>
+        SELECT `id`, `staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`,
+        `staff_province`, `staff_phone`, `worktype`, `entry_time` FROM `staff`
+        <where>
+            <if test="staff_name!=null and staff_name!=''">
+                `staff_name` like concat("%",#{staff_name},"%")
+            </if>
+            <if test="worktype!=null and worktype!=''">
+                and `worktype`=#{worktype}
+            </if>
+            <if test="staff_card!=null and staff_card!=''">
+                and `staff_card`=#{staff_card}
+            </if>
+            <if test="staff_phone!=null and staff_phone!=''">
+                and `staff_phone`=#{staff_phone}
+            </if>
+        </where>
+        ORDER BY `entry_time` DESC
+        limit #{page},#{pageSize}
+    </select>
+
+    <!--统计总数-->
+    <select id="Total" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(id) FROM `staff`
+        <where>
+            <if test="staff_name!=null and staff_name!=''">
+                `staff_name` like concat("%",#{staff_name},"%")
+            </if>
+            <if test="worktype!=null and worktype!=''">
+                and `worktype`=#{worktype}
+            </if>
+            <if test="staff_card!=null and staff_card!=''">
+                and `staff_card`=#{staff_card}
+            </if>
+            <if test="staff_phone!=null and staff_phone!=''">
+                and `staff_phone`=#{staff_phone}
+            </if>
+        </where>
+    </select>
+
+    <!--根据staff_phone查询员工信息-->
+    <select id="FindStaffByStaffPhone" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
+        SELECT `id`, `staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype`, `entry_time` FROM `staff`
+        WHERE `staff_phone`=#{staff_phone}
+    </select>
+</mapper>
