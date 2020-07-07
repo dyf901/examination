@@ -19,6 +19,12 @@ public class StaffService implements StaffDao {
         return staffDao.InsertStaff(map);
     }
 
+    //增加员工信息S
+    @Override
+    public int InsertStaffS(Staff staff) {
+        return staffDao.InsertStaffS(staff);
+    }
+
     //删除员工信息
     @Override
     public int DeleteStaff(Map map) {
@@ -29,6 +35,12 @@ public class StaffService implements StaffDao {
     @Override
     public int UpdateStaff(Map map) {
         return staffDao.UpdateStaff(map);
+    }
+
+    //修改员工信息S
+    @Override
+    public int UpdateStaffS(Staff staff) {
+        return staffDao.UpdateStaffS(staff);
     }
 
     //分页模糊查询员工信息
@@ -47,5 +59,11 @@ public class StaffService implements StaffDao {
     @Override
     public Staff FindStaffByStaffPhone(Map map) {
         return staffDao.FindStaffByStaffPhone(map);
+    }
+
+    //根据staff_phone统计总数
+    @Override
+    public int CountStaff(String staff_phone) {
+        return staffDao.CountStaff(staff_phone);
     }
 }

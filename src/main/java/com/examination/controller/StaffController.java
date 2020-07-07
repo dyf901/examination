@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -34,10 +35,14 @@ public class StaffController {
 
     @ApiOperation(value = "增加员工信息" , notes = "")
     @PostMapping("/InsertStaff")
-    public JsonResult InsertStaff(@RequestBody Map map) {
+    public JsonResult InsertStaff(@RequestBody Map map) throws ParseException {
         JsonResult jsonResult = new JsonResult();
         Staff staff = staffService.FindStaffByStaffPhone(map);
         if (staff == null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date now = new Date();
+            String time = format.format(now);
+            map.put("entry_time",time);
             int i = staffService.InsertStaff(map);
             if (i == 1) {
                 jsonResult.setCode(200);
@@ -80,7 +85,7 @@ public class StaffController {
         return page;
     }
 
-    /*@ApiOperation(value = "批量导入" , notes = "")
+    @ApiOperation(value = "批量导入" , notes = "")
     @PostMapping("/import")
     public boolean addUser(@RequestParam("file") MultipartFile file) throws Exception {
         boolean notNull = false;
@@ -105,7 +110,7 @@ public class StaffController {
             notNull = true;
         }
 
-        Map<String, PictureData> maplist = null;
+        /*Map<String, PictureData> maplist = null;
         sheet = wb.getSheetAt(0);
         // 判断用07还是03的方法获取图片
         if (isExcel2003) {
@@ -122,7 +127,8 @@ public class StaffController {
             if (maplist != null) {
                 maplist = null;
             }
-        }
+        }*/
+
         Staff staff;
         for (int r = 1; r <= sheet.getLastRowNum(); r++) {
             Row row = sheet.getRow(r);
@@ -130,15 +136,16 @@ public class StaffController {
                 continue;
             }
 
-            String card1 = row.getCell(3).getStringCellValue();//身份证号
+            String card1 = row.getCell(4).getStringCellValue();//身份证号
             if (card1.equals("")) {
                 continue;
             }
             staff = new Staff();
 
             String name = row.getCell(0).getStringCellValue();//姓名
-            String sex = row.getCell(1).getStringCellValue();//性别
-            String nation = row.getCell(2).getStringCellValue();//民族
+            String age = row.getCell(1).getStringCellValue();//年龄
+            String sex = row.getCell(2).getStringCellValue();//性别
+            String nation = row.getCell(3).getStringCellValue();//民族
             row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);//设置身份证号格式
             //String card1 = row.getCell(3).getStringCellValue();//身份证号
             System.out.println("card1:" + card1);
@@ -148,90 +155,58 @@ public class StaffController {
                 card = card1.substring(0, 18);
             }
             System.out.println("card:" + card);
-            String address = row.getCell(4).getStringCellValue();//地址
-            row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);//设置手机号格式
-            String phone = row.getCell(5).getStringCellValue();//手机号
-            String sos_name = row.getCell(6).getStringCellValue();//紧急联系人
-            String sos_ship = row.getCell(7).getStringCellValue();//紧急联系人关系
-            row.getCell(8).setCellType(Cell.CELL_TYPE_STRING);//设置紧急联系人号码格式
-            String sos_phone = row.getCell(8).getStringCellValue();//紧急联系人电话
-            //String img_url = row.getCell(9).getStringCellValue();//照片
+            String address = row.getCell(5).getStringCellValue();//地址
+            row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);//设置手机号格式
+            String phone = row.getCell(6).getStringCellValue();//手机号
+            String worktype = row.getCell(7).getStringCellValue();//工种
+//            String img = row.getCell(12).getStringCellValue();//图片
+//            System.out.println("img" + img);
+//
+//            String img_url = null;
+//
+//            if (img.equals("null")) {
+//                img_url = "default.jpg";
+//
+//            } else {
+//                SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
+//                //System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+//                img_url = r + "." + df.format(new Date()) + ".jpg";
+//            }
 
-            row.getCell(9).setCellType(Cell.CELL_TYPE_STRING);
-            //int department_id = Integer.parseInt(row.getCell(9).getStringCellValue());
-            String department_name = row.getCell(9).getStringCellValue();
-            List<Department> department = departmentService.select_department();
-            int department_id = 0;
-            for (int i = 0; i < department.size(); i++) {
-                Department department1 = department.get(i);
-                if (department1.getName().equals(department_name)) {
-                    department_id = department1.getId();
-                }
-            }
+            String img = "default.jpg";
 
-            row.getCell(10).setCellType(Cell.CELL_TYPE_STRING);
-            //int worktype_id = Integer.parseInt(row.getCell(10).getStringCellValue());
-            String worktype_name = row.getCell(10).getStringCellValue();
-            List<WorkType> worktype = workTypeService.select_worktype();
-            int worktype_id = 0;
-            for (int j = 0; j < worktype.size(); j++) {
-                WorkType worktype1 = worktype.get(j);
-                if (worktype1.getName().equals(worktype_name)) {
-                    worktype_id = worktype1.getId();
-                }
-            }
-
-
-            String type = row.getCell(11).getStringCellValue();//班组
-
-            String img = row.getCell(12).getStringCellValue();//图片
-            System.out.println("img" + img);
-
-            String img_url = null;
-
-            if (img.equals("null")) {
-                img_url = "default.jpg";
-
-            } else {
-                SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
-                //System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-                img_url = r + "." + df.format(new Date()) + ".jpg";
-            }
-
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date now = new Date();
+            String time = format.format(now);
 
             //添加到实体类
-            staff.setName(name);
-            staff.setSex(sex);
-            staff.setNation(nation);
-            staff.setCard(card);
-            staff.setAddress(address);
-            staff.setPhone(phone);
-            staff.setSos_name(sos_name);
-            staff.setSos_ship(sos_ship);
-            staff.setSos_phone(sos_phone);
-            staff.setImg_url(img_url);
-            staff.setDepartment_id(department_id);
-            staff.setWorktype_id(worktype_id);
-            staff.setType(type);
-
-
+            staff.setStaff_name(name);
+            staff.setStaff_age(age);
+            staff.setStaff_img(img);
+            staff.setStaff_sex(sex);
+            staff.setStaff_nation(nation);
+            staff.setStaff_card(card);
+            staff.setStaff_address(address);
+            staff.setStaff_phone(phone);
+            staff.setWorktype(worktype);
+            staff.setEntry_time(time);
             //添加到数组里
             staffList.add(staff);
         }
         for (Staff staff1 : staffList) {
-            String card = staff1.getCard();
-            System.out.println(card);
-            int cnt = staffService.CountByCard(card);
+            String staff_phone = staff1.getStaff_phone();
+            System.out.println("staff_phone:"+staff_phone);
+            int cnt = staffService.CountStaff(staff_phone);
             if (cnt == 0) {
-                staffService.InsertStaff(staff1);
+                staffService.InsertStaffS(staff1);
                 System.out.println(" 插入 " + staff1.toString());
             } else {
-                staffService.UpdateStaffByCard(staff1);
+                staffService.UpdateStaffS(staff1);
                 System.out.println(" 更新 " + staff1.toString());
             }
         }
         return notNull;
-    }*/
+    }
 
     /**
      * 获取图片和位置 (xls)
@@ -240,7 +215,7 @@ public class StaffController {
      * @return
      * @throws IOException
      */
-    public static Map<String, PictureData> getPictures1(HSSFSheet sheet) throws IOException {
+    /*public static Map<String, PictureData> getPictures1(HSSFSheet sheet) throws IOException {
         Map<String, PictureData> map = new HashMap<String, PictureData>();
         List<HSSFShape> list = sheet.getDrawingPatriarch().getChildren();
         for (HSSFShape shape : list) {
@@ -254,7 +229,7 @@ public class StaffController {
             }
         }
         return map;
-    }
+    }*/
 
     /**
      * 获取图片和位置 (xlsx)
@@ -263,7 +238,7 @@ public class StaffController {
      * @return
      * @throws IOException
      */
-    public static Map<String, PictureData> getPictures2(XSSFSheet sheet) throws IOException {
+    /*public static Map<String, PictureData> getPictures2(XSSFSheet sheet) throws IOException {
         Map<String, PictureData> map = new HashMap<String, PictureData>();
         List<POIXMLDocumentPart> list = sheet.getRelations();
         for (POIXMLDocumentPart part : list) {
@@ -282,10 +257,10 @@ public class StaffController {
             }
         }
         return map;
-    }
+    }*/
 
     //图片写出
-    public static void printImg(Map<String, PictureData> sheetList) throws Exception {
+    /*public static void printImg(Map<String, PictureData> sheetList) throws Exception {
         Object key[] = sheetList.keySet().toArray();
         String filePath = "";
         for (int i = 0; i < sheetList.size(); i++) {
@@ -309,5 +284,5 @@ public class StaffController {
             out.write(data);
             out.close();
         }
-    }
+    }*/
 }

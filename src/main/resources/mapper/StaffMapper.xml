@@ -9,6 +9,12 @@
       VALUES ( #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype}, #{entry_time});
     </insert>
 
+    <!--增加员工信息S-->
+    <insert id="InsertStaffS" parameterType="com.examination.entity.Staff">
+      INSERT INTO `staff`(`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype`, `entry_time`)
+      VALUES ( #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype}, #{entry_time});
+    </insert>
+
     <!--删除员工信息-->
     <delete id="DeleteStaff" parameterType="java.util.Map">
         DELETE FROM `staff` WHERE `id`=#{id}
@@ -32,6 +38,38 @@
             </if>
             <if test="staff_nation!=null and staff_nation!=''">
                 `staff_nation`=#{staff_nation},
+            </if>
+            <if test="staff_card!=null and staff_card!=''">
+                `staff_card`=#{staff_card},
+            </if>
+            <if test="staff_address!=null and staff_address!=''">
+                `staff_address`=#{staff_address},
+            </if>
+            <if test="staff_phone!=null and staff_phone!=''">
+                `staff_phone`=#{staff_phone},
+            </if>
+            <if test="worktype!=null and worktype!=''">
+                `worktype`=#{worktype},
+            </if>
+        </trim>
+        where `id`=#{id}
+    </update>
+
+    <!--修改员工信息S-->
+    <update id="UpdateStaffS" parameterType="com.examination.entity.Staff">
+        update `staff`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="staff_name!=null and staff_name!=''">
+                `staff_name`=#{staff_name},
+            </if>
+            <if test="staff_age!=null and staff_age!=''">
+                `staff_age`=#{staff_age},
+            </if>
+            <if test="staff_img!=null and staff_img!=''">
+                `staff_img`=#{staff_img},
+            </if>
+            <if test="staff_sex!=null and staff_sex!=''">
+                `staff_sex`=#{staff_sex},
             </if>
             <if test="staff_card!=null and staff_card!=''">
                 `staff_card`=#{staff_card},
@@ -94,6 +132,12 @@
     <!--根据staff_phone查询员工信息-->
     <select id="FindStaffByStaffPhone" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
         SELECT `id`, `staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype`, `entry_time` FROM `staff`
+        WHERE `staff_phone`=#{staff_phone}
+    </select>
+
+    <!--根据staff_phone查询员工信息S-->
+    <select id="CountStaff"  resultType="int">
+        SELECT COUNT(id) FROM `staff`
         WHERE `staff_phone`=#{staff_phone}
     </select>
 </mapper>

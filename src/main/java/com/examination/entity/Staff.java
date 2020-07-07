@@ -11,7 +11,7 @@ public class Staff {
     private int id;
 
     @ApiModelProperty(value = "年龄" , name = "staff_age")
-    private int staff_age;
+    private String staff_age;
 
     @ApiModelProperty(value = "姓名" , name = "staff_name")
     private String staff_name;
@@ -56,7 +56,7 @@ public class Staff {
         super();
     }
 
-    public Staff(int id, int staff_age, String staff_name, String staff_img, String staff_sex, String staff_nation, String staff_card, String staff_address, String staff_province, String staff_phone, String worktype, String entry_time, String password, String state, String train) {
+    public Staff(int id, String staff_age, String staff_name, String staff_img, String staff_sex, String staff_nation, String staff_card, String staff_address, String staff_province, String staff_phone, String worktype, String entry_time, String password, String state, String train) {
         this.id = id;
         this.staff_age = staff_age;
         this.staff_name = staff_name;
@@ -82,11 +82,11 @@ public class Staff {
         this.id = id;
     }
 
-    public int getStaff_age() {
+    public String getStaff_age() {
         return staff_age;
     }
 
-    public void setStaff_age(int staff_age) {
+    public void setStaff_age(String staff_age) {
         this.staff_age = staff_age;
     }
 
@@ -214,4 +214,5 @@ public class Staff {
                 ", train='" + train + '\'' +
                 '}';
     }
+
 }
