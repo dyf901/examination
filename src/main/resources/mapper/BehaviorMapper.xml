@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.examination.dao.BehaviorDao">
+    <!--增加行为类型-->
+    <insert id="InsertBehavior" parameterType="java.util.Map">
+        INSERT INTO `behavior` (`behavior_name`,`detail`, `remark`) VALUES (#{behavior_name}, #{detail}, #{remark});
+    </insert>
+
+    <!--删除行为类型-->
+    <delete id="DeleteBehavior" parameterType="java.util.Map">
+        DELETE FROM `behavior` WHERE `id`=#{id}
+    </delete>
+
+    <!--修改行为类型信息-->
+    <update id="UpdateBehavior" parameterType="java.util.Map">
+        UPDATE `behavior` SET `behavior_name`=#{behavior_name}, `detail`=#{detail}, `remark`=#{remark}
+        WHERE (`id`=#{id});
+    </update>
+
+    <!--分页模糊查询-->
+    <select id="FindBehavior" parameterType="java.util.Map" resultType="com.examination.entity.Behavior">
+        <bind name="page" value="pageSize*(pageNo-1)"></bind>
+        SELECT `id`, `behavior_name`,`detail`, `remark` FROM `behavior`
+        <where>
+            <if test="behavior_name!=null and behavior_name!=''">
+               `behavior_name` like concat("%",#{behavior_name},"%")
+            </if>
+        </where>
+        limit #{page},#{pageSize}
+    </select>
+
+    <!--统计总数-->
+    <select id="Total" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(id) FROM `behavior`
+        <where>
+            <if test="behavior_name!=null and behavior_name!=''">
+               `behavior_name` like concat("%",#{behavior_name},"%")
+            </if>
+        </where>
+    </select>
+
+    <!--行为类型下拉框-->
+    <select id="SelectBehavior" resultType="com.examination.entity.BehaviorRecord">
+        SELECT `id`, `behavior_name` FROM `behavior`
+    </select>
+</mapper>

@@ -33,7 +33,7 @@ public class StaffController {
     private StaffService staffService;//员工
 
 
-    @ApiOperation(value = "增加员工信息" , notes = "")
+    @ApiOperation(value = "增加员工信息", notes = "")
     @PostMapping("/InsertStaff")
     public JsonResult InsertStaff(@RequestBody Map map) throws ParseException {
         JsonResult jsonResult = new JsonResult();
@@ -42,7 +42,7 @@ public class StaffController {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date now = new Date();
             String time = format.format(now);
-            map.put("entry_time",time);
+            map.put("entry_time", time);
             int i = staffService.InsertStaff(map);
             if (i == 1) {
                 jsonResult.setCode(200);
@@ -62,19 +62,19 @@ public class StaffController {
         return jsonResult;
     }
 
-    @ApiOperation(value = "删除员工信息" , notes = "{\"id\":2}")
+    @ApiOperation(value = "删除员工信息", notes = "{\"id\":2}")
     @PostMapping("/DeleteStaff")
     public boolean DeleteStaff(@RequestBody Map map) {
         return staffService.DeleteStaff(map) == 1;
     }
 
-    @ApiOperation(value = "修改员工信息" , notes = "")
+    @ApiOperation(value = "修改员工信息", notes = "")
     @PostMapping("/UpdateStaff")
     public boolean UpdateStaff(@RequestBody Map map) {
         return staffService.UpdateStaff(map) == 1;
     }
 
-    @ApiOperation(value = "分页模糊查询员工信息" , notes = "{\"pageNo\":1,\"pageSize\":10}")
+    @ApiOperation(value = "分页模糊查询员工信息", notes = "{\"pageNo\":1,\"pageSize\":10}")
     @PostMapping("/FindStaff")
     public Page<Staff> FindStaff(@RequestBody Map map) {
         Page<Staff> page = new Page<Staff>();
@@ -85,7 +85,7 @@ public class StaffController {
         return page;
     }
 
-    @ApiOperation(value = "批量导入" , notes = "")
+    @ApiOperation(value = "批量导入", notes = "")
     @PostMapping("/import")
     public boolean addUser(@RequestParam("file") MultipartFile file) throws Exception {
         boolean notNull = false;
@@ -195,7 +195,7 @@ public class StaffController {
         }
         for (Staff staff1 : staffList) {
             String staff_phone = staff1.getStaff_phone();
-            System.out.println("staff_phone:"+staff_phone);
+            System.out.println("staff_phone:" + staff_phone);
             int cnt = staffService.CountStaff(staff_phone);
             if (cnt == 0) {
                 staffService.InsertStaffS(staff1);

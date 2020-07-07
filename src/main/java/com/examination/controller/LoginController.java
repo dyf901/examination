@@ -1,6 +1,8 @@
 package com.examination.controller;
 
+import com.examination.entity.Staff;
 import com.examination.entity.User;
+import com.examination.service.StaffService;
 import com.examination.service.UserService;
 import com.examination.util.JsonResult;
 import com.examination.util.ResultCode;
@@ -22,7 +24,10 @@ public class LoginController {
     @Autowired
     private UserService userService;//用户
 
-    @ApiOperation(value = "PC登陆" , notes = "测试数据:{\"username\":\"admin\",\"password\":\"123456\"}")
+    @Autowired
+    private StaffService staffService;//员工
+
+    @ApiOperation(value = "PC登陆", notes = "测试数据:{\"username\":\"admin\",\"password\":\"123456\"}")
     @PostMapping("/LoginPc")
     public JsonResult LoginPc(@RequestBody Map map) throws ParseException {
         JsonResult jsonResult = new JsonResult(ResultCode.USER_NOT_EXIST);
@@ -54,6 +59,32 @@ public class LoginController {
             }
         } else {
             jsonResult.setMessage("用户名不存在!");
+            jsonResult.setCode(20001);
+            return jsonResult;
+        }
+    }
+
+    @ApiOperation(value = "App登录", notes = "测试数据:{\"staff_phone\":\"13100000000\",\n" +
+            "\"password\":\"123456\"}")
+    @PostMapping("/LoginApp")
+    public JsonResult LoginApp1(@RequestBody Map map) {
+        JsonResult jsonResult = new JsonResult(ResultCode.USER_NOT_EXIST);
+        System.out.println(map);
+        Staff staff = staffService.FindStaffByStaffPhone(map);
+        System.out.println(staff);
+        if (staff != null) {
+            if (staff.getPassword().equals(map.get("password"))) {
+                jsonResult.setMessage("登录成功!");
+                jsonResult.setData(staff);
+                jsonResult.setCode(200);
+                return jsonResult;
+            } else {
+                jsonResult.setMessage("密码错误,登录失败!");
+                jsonResult.setCode(20003);
+                return jsonResult;
+            }
+        } else {
+            jsonResult.setMessage("用户不存在!");
             jsonResult.setCode(20001);
             return jsonResult;
         }
