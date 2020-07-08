@@ -19,6 +19,7 @@ public class BehaviorController {
     @Autowired
     private BehaviorService behaviorService;//行为类型
 
+
     @ApiOperation(value = "增加行为类型" , notes = "测试数据:{\"behavior_name\":\"表扬\",\n" +
             "\"detail\":\"给予员工达标的嘉奖\",\"remark\":\"请详细记录受嘉奖的行为。\"}")
     @PostMapping("/InsertBehavior")
