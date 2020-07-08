@@ -28,11 +28,14 @@ public class Train {
     @ApiModelProperty(value = "视频地址" , name = "video_url")
     private String video_url;
 
+    @ApiModelProperty(value = "我的培训类型名称",name = "Ttype_name")
+    private String Ttype_name;
+
     public Train() {
         super();
     }
 
-    public Train(int id, int ttype_id, String train_name, String type_name, String content, String img, String video_url) {
+    public Train(int id, int ttype_id, String train_name, String type_name, String content, String img, String video_url, String ttype_name) {
         this.id = id;
         Ttype_id = ttype_id;
         this.train_name = train_name;
@@ -40,6 +43,7 @@ public class Train {
         this.content = content;
         this.img = img;
         this.video_url = video_url;
+        Ttype_name = ttype_name;
     }
 
     public int getId() {
@@ -98,6 +102,14 @@ public class Train {
         this.video_url = video_url;
     }
 
+    public String getTtype_name() {
+        return Ttype_name;
+    }
+
+    public void setTtype_name(String ttype_name) {
+        Ttype_name = ttype_name;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -108,6 +120,7 @@ public class Train {
                 ", content='" + content + '\'' +
                 ", img='" + img + '\'' +
                 ", video_url='" + video_url + '\'' +
+                ", Ttype_name='" + Ttype_name + '\'' +
                 '}';
     }
 }
