@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.examination.dao.KnowledgeDao">
+    <!--增加知识类型-->
+    <insert id="InsertKnowledge" parameterType="java.util.Map">
+        INSERT INTO `knowledge` (`knowledge_name`) VALUES (#{knowledge_name});
+    </insert>
+
+    <!--删除知识类型-->
+    <delete id="DeleteKnowledge" parameterType="java.util.Map">
+        DELETE FROM `knowledge` WHERE `id`=#{id}
+    </delete>
+
+    <!--修改知识类型-->
+    <update id="UpdateKnowledge" parameterType="java.util.Map">
+        UPDATE `knowledge` SET `knowledge_name`=#{knowledge_name} WHERE (`id`=#{id});
+    </update>
+
+    <!--分页查询知识类型-->
+    <select id="FindKnowledge" parameterType="java.util.Map" resultType="com.examination.entity.Knowledge">
+        <bind name="page" value="pageSize*(pageNo-1)"></bind>
+        SELECT `id`, `knowledge_name` FROM `knowledge`
+        limit #{page},#{pageSize}
+    </select>
+
+    <!--统计总数-->
+    <select id="Total"  resultType="long">
+        SELECT COUNT(*) FROM `knowledge`
+    </select>
+
+    <!--下拉框查询知识类型-->
+    <select id="SelectKnowledge" resultType="com.examination.entity.Knowledge">
+        SELECT `id`, `knowledge_name` FROM `knowledge`
+    </select>
+</mapper>
