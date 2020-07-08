@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.examination.dao.TtypeDao">
+    <!--增加我的培训类型-->
+    <insert id="InsertTtype" parameterType="java.util.Map">
+        INSERT INTO `ttype`(`Ttype_name`) VALUES (#{Ttype_name});
+    </insert>
+
+    <!--删除我的配信类型-->
+    <delete id="DeleteTtype" parameterType="java.util.Map">
+        DELETE FROM `ttype` WHERE `id`=#{id}
+    </delete>
+
+    <!--修改我的培训类型-->
+    <update id="UpdateTtype" parameterType="java.util.Map">
+        UPDATE `ttype` SET `Ttype_name` = #{Ttype_name} WHERE `id` = #{id};
+    </update>
+
+    <!--查询我的培训类型-->
+    <select id="FindTtype" resultType="com.examination.entity.Ttype">
+        SELECT `id`, `Ttype_name` FROM `ttype`
+    </select>
+</mapper>

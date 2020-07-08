@@ -10,8 +10,8 @@ public class Train {
     @ApiModelProperty(value = "ID" , name = "id")
     private int id;
 
-    @ApiModelProperty(value = "培训类型id" , name = "type_id")
-    private int type_id;
+    @ApiModelProperty(value = "培训类型id" , name = "Ttype_id")
+    private int Ttype_id;
 
     @ApiModelProperty(value = "培训名称" , name = "train_name")
     private String train_name;
@@ -32,9 +32,9 @@ public class Train {
         super();
     }
 
-    public Train(int id, int type_id, String train_name, String type_name, String content, String img, String video_url) {
+    public Train(int id, int ttype_id, String train_name, String type_name, String content, String img, String video_url) {
         this.id = id;
-        this.type_id = type_id;
+        Ttype_id = ttype_id;
         this.train_name = train_name;
         this.type_name = type_name;
         this.content = content;
@@ -50,12 +50,12 @@ public class Train {
         this.id = id;
     }
 
-    public int getType_id() {
-        return type_id;
+    public int getTtype_id() {
+        return Ttype_id;
     }
 
-    public void setType_id(int type_id) {
-        this.type_id = type_id;
+    public void setTtype_id(int ttype_id) {
+        Ttype_id = ttype_id;
     }
 
     public String getTrain_name() {
@@ -102,7 +102,7 @@ public class Train {
     public String toString() {
         return "{" +
                 "id=" + id +
-                ", type_id=" + type_id +
+                ", Ttype_id=" + Ttype_id +
                 ", train_name='" + train_name + '\'' +
                 ", type_name='" + type_name + '\'' +
                 ", content='" + content + '\'' +
