@@ -5,14 +5,14 @@
 <mapper namespace="com.examination.dao.StaffDao">
     <!--增加员工信息-->
     <insert id="InsertStaff" parameterType="java.util.Map">
-      INSERT INTO `staff`(`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype`, `entry_time`)
-      VALUES ( #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype}, #{entry_time});
+      INSERT INTO `staff`(`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype_id`, `entry_time`)
+      VALUES ( #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype_id}, #{entry_time});
     </insert>
 
     <!--增加员工信息S-->
     <insert id="InsertStaffS" parameterType="com.examination.entity.Staff">
-      INSERT INTO `staff`(`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype`, `entry_time`)
-      VALUES ( #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype}, #{entry_time});
+      INSERT INTO `staff`(`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype_id`, `entry_time`)
+      VALUES ( #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype_id}, #{entry_time});
     </insert>
 
     <!--删除员工信息-->
@@ -48,8 +48,8 @@
             <if test="staff_phone!=null and staff_phone!=''">
                 `staff_phone`=#{staff_phone},
             </if>
-            <if test="worktype!=null and worktype!=''">
-                `worktype`=#{worktype},
+            <if test="worktype_id!=null and worktype_id!=''">
+                `worktype_id`=#{worktype_id},
             </if>
         </trim>
         where `id`=#{id}
@@ -80,8 +80,8 @@
             <if test="staff_phone!=null and staff_phone!=''">
                 `staff_phone`=#{staff_phone},
             </if>
-            <if test="worktype!=null and worktype!=''">
-                `worktype`=#{worktype},
+            <if test="worktype_id!=null and worktype_id!=''">
+                `worktype_id`=#{worktype_id},
             </if>
         </trim>
         where `id`=#{id}
@@ -90,23 +90,24 @@
     <!--分页模糊查询员工信息-->
     <select id="FindStaff" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
-        SELECT `id`, `staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`,
-        `staff_province`, `staff_phone`, `worktype`, `entry_time` FROM `staff`
+        SELECT s.`id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
+        s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,w.`worktype_name` AS `worktype_name` FROM `staff` s
+        left JOIN `worktype` w on s.`worktype_id`=w.`id`
         <where>
             <if test="staff_name!=null and staff_name!=''">
-                `staff_name` like concat("%",#{staff_name},"%")
+                s.`staff_name` like concat("%",#{staff_name},"%")
             </if>
-            <if test="worktype!=null and worktype!=''">
-                and `worktype`=#{worktype}
+            <if test="worktype_id!=null and worktype_id!=''">
+                and s.`worktype_id`=#{worktype_id}
             </if>
             <if test="staff_card!=null and staff_card!=''">
-                and `staff_card`=#{staff_card}
+                and s.`staff_card`=#{staff_card}
             </if>
             <if test="staff_phone!=null and staff_phone!=''">
-                and `staff_phone`=#{staff_phone}
+                and s.`staff_phone`=#{staff_phone}
             </if>
         </where>
-        ORDER BY `entry_time` DESC
+        ORDER BY s.`entry_time` DESC
         limit #{page},#{pageSize}
     </select>
 
@@ -117,8 +118,8 @@
             <if test="staff_name!=null and staff_name!=''">
                 `staff_name` like concat("%",#{staff_name},"%")
             </if>
-            <if test="worktype!=null and worktype!=''">
-                and `worktype`=#{worktype}
+            <if test="worktype_id!=null and worktype_id!=''">
+                and `worktype_id`=#{worktype_id}
             </if>
             <if test="staff_card!=null and staff_card!=''">
                 and `staff_card`=#{staff_card}
@@ -131,13 +132,14 @@
 
     <!--根据staff_phone查询员工信息-->
     <select id="FindStaffByStaffPhone" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
-        SELECT `id`, `staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype`, `entry_time` FROM `staff`
+        SELECT s.`id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
+        s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,w.`worktype_name` AS `worktype_name` FROM `staff` s
+        left JOIN `worktype` w on s.`worktype_id`=w.`id`
         WHERE `staff_phone`=#{staff_phone}
     </select>
 
     <!--根据staff_phone查询员工信息S-->
     <select id="CountStaff"  resultType="int">
-        SELECT COUNT(id) FROM `staff`
-        WHERE `staff_phone`=#{staff_phone}
+        SELECT COUNT(id) FROM `staff` WHERE `staff_phone`=#{staff_phone}
     </select>
 </mapper>

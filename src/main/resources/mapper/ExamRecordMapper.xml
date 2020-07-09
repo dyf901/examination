@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.examination.dao.ExamRecordDao">
+    <!--增加考试记录-->
+    <insert id="InsertExamRecord" parameterType="java.util.Map">
+        INSERT INTO `exam_record` (`exam_id`, `staff_id`, `exam_count`, `exam_time`,
+        `exam_result`, `exam_timeC`)
+        VALUES (#{exam_id}, #{staff_id}, #{exam_count}, #{exam_time}, #{exam_result}, #{exam_timeC});
+    </insert>
+
+    <!--删除考试记录-->
+    <delete id="DeleteExamRecord" parameterType="java.util.Map">
+        DELETE FROM `exam_record` WHERE `id`=#{id}
+    </delete>
+
+    <!--分页模糊查询考试记录-->
+    <select id="FindExamRecord" parameterType="java.util.Map" resultType="com.examination.entity.ExamRecord">
+        <bind name="page" value="pageSize*(pageNo-1)"></bind>
+        SELECT e.`id`, e.`exam_id`, e.`staff_id`, e.`exam_count`, e.`exam_time`, e.`exam_result`,
+        e.`exam_timeC` FROM `exam_record` e
+        INNER JOIN `exam` r ON e.`exam_id`=r.`id`
+        INNER JOIN `staff` s ON e.`staff_id`=s.`id`
+        ORDER BY e.`exam_time` DESC
+        limit #{page},#{pageSize}
+    </select>
+
+    <!--统计总数-->
+    <select id="Total" resultType="long">
+        SELECT COUNT(*) `exam_record`
+    </select>
+
+    <!--查询个人考试记录-->
+    <select id="FindExamRecordByStaffId" parameterType="java.util.Map"
+            resultType="com.examination.entity.ExamRecord">
+        SELECT e.`id`, e.`exam_id`, e.`staff_id`, e.`exam_count`, e.`exam_time`, e.`exam_result`,
+        e.`exam_timeC`,r.`exam_name` as `exam_name`,s.`staff_name` as `staff_name` FROM `exam_record` e
+        INNER JOIN `exam` r ON e.`exam_id`=r.`id`
+        INNER JOIN `staff` s ON e.`staff_id`=s.`id`
+        WHERE e.`staff_id`=#{staff_id}
+        ORDER BY e.`exam_time` DESC
+    </select>
+
+    <!--查询个人考试记录-->
+    <select id="FindExamRecordByStaffIdALL" parameterType="java.util.Map"
+            resultType="com.examination.entity.ExamRecord">
+        SELECT e.`id`, e.`exam_id`, e.`staff_id`, e.`exam_count`, e.`exam_time`, e.`exam_result`,
+        e.`exam_timeC`,r.`exam_name` as `exam_name`,s.`staff_name` as `staff_name` FROM `exam_record` e
+        INNER JOIN `exam` r ON e.`exam_id`=r.`id`
+        INNER JOIN `staff` s ON e.`staff_id`=s.`id`
+        WHERE e.`staff_id`=#{staff_id}
+        ORDER BY e.`exam_time` DESC
+    </select>
+
+    <!--统计考试通过人数-->
+    <select id="CountT" resultType="int">
+        SELECT COUNT(*) FROM `exam_record` WHERE `exam_result`='合格'
+    </select>
+
+    <!--统计考试人数-->
+    <select id="CountAll" resultType="int">
+        SELECT COUNT(*) FROM `exam_record`
+    </select>
+</mapper>

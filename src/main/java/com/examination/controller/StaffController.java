@@ -85,7 +85,7 @@ public class StaffController {
         return page;
     }
 
-    @ApiOperation(value = "批量导入", notes = "")
+    /*@ApiOperation(value = "批量导入", notes = "")
     @PostMapping("/import")
     public boolean addUser(@RequestParam("file") MultipartFile file) throws Exception {
         boolean notNull = false;
@@ -110,7 +110,7 @@ public class StaffController {
             notNull = true;
         }
 
-        /*Map<String, PictureData> maplist = null;
+        *//*Map<String, PictureData> maplist = null;
         sheet = wb.getSheetAt(0);
         // 判断用07还是03的方法获取图片
         if (isExcel2003) {
@@ -127,7 +127,7 @@ public class StaffController {
             if (maplist != null) {
                 maplist = null;
             }
-        }*/
+        }*//*
 
         Staff staff;
         for (int r = 1; r <= sheet.getLastRowNum(); r++) {
@@ -206,7 +206,7 @@ public class StaffController {
             }
         }
         return notNull;
-    }
+    }*/
 
     /**
      * 获取图片和位置 (xls)

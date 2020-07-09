@@ -37,8 +37,11 @@ public class Staff {
     @ApiModelProperty(value = "手机号" , name = "staff_phone")
     private String staff_phone;
 
-    @ApiModelProperty(value = "工种" , name = "worktype")
-    private String worktype;
+    @ApiModelProperty(value = "工种" , name = "worktype_id")
+    private int worktype_id;
+
+    @ApiModelProperty(value = "工种" , name = "worktype_name")
+    private String worktype_name;
 
     @ApiModelProperty(value = "入职时间" , name = "entry_time")
     private String entry_time;
@@ -56,7 +59,7 @@ public class Staff {
         super();
     }
 
-    public Staff(int id, String staff_age, String staff_name, String staff_img, String staff_sex, String staff_nation, String staff_card, String staff_address, String staff_province, String staff_phone, String worktype, String entry_time, String password, String state, String train) {
+    public Staff(int id, String staff_age, String staff_name, String staff_img, String staff_sex, String staff_nation, String staff_card, String staff_address, String staff_province, String staff_phone, int worktype_id, String worktype_name, String entry_time, String password, String state, String train) {
         this.id = id;
         this.staff_age = staff_age;
         this.staff_name = staff_name;
@@ -67,7 +70,8 @@ public class Staff {
         this.staff_address = staff_address;
         this.staff_province = staff_province;
         this.staff_phone = staff_phone;
-        this.worktype = worktype;
+        this.worktype_id = worktype_id;
+        this.worktype_name = worktype_name;
         this.entry_time = entry_time;
         this.password = password;
         this.state = state;
@@ -154,12 +158,20 @@ public class Staff {
         this.staff_phone = staff_phone;
     }
 
-    public String getWorktype() {
-        return worktype;
+    public int getWorktype_id() {
+        return worktype_id;
     }
 
-    public void setWorktype(String worktype) {
-        this.worktype = worktype;
+    public void setWorktype_id(int worktype_id) {
+        this.worktype_id = worktype_id;
+    }
+
+    public String getWorktype_name() {
+        return worktype_name;
+    }
+
+    public void setWorktype_name(String worktype_name) {
+        this.worktype_name = worktype_name;
     }
 
     public String getEntry_time() {
@@ -198,7 +210,7 @@ public class Staff {
     public String toString() {
         return "{" +
                 "id=" + id +
-                ", staff_age=" + staff_age +
+                ", staff_age='" + staff_age + '\'' +
                 ", staff_name='" + staff_name + '\'' +
                 ", staff_img='" + staff_img + '\'' +
                 ", staff_sex='" + staff_sex + '\'' +
@@ -207,12 +219,12 @@ public class Staff {
                 ", staff_address='" + staff_address + '\'' +
                 ", staff_province='" + staff_province + '\'' +
                 ", staff_phone='" + staff_phone + '\'' +
-                ", worktype='" + worktype + '\'' +
+                ", worktype_id=" + worktype_id +
+                ", worktype_name='" + worktype_name + '\'' +
                 ", entry_time='" + entry_time + '\'' +
                 ", password='" + password + '\'' +
                 ", state='" + state + '\'' +
                 ", train='" + train + '\'' +
                 '}';
     }
-
 }

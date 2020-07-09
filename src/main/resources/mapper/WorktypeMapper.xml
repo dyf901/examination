@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.examination.dao.WorktypeDao">
+    <!--增加工种-->
+    <insert id="InsertWorktype" parameterType="java.util.Map">
+        INSERT INTO `worktype` (`worktype_name`, `content`, `remark`)
+        VALUES (#{worktype_name}, #{content}, #{remark});
+    </insert>
+
+    <!--删除工种-->
+    <delete id="DeleteWorktype" parameterType="java.util.Map">
+        DELETE FROM `worktype` WHERE `id`=#{id}
+    </delete>
+
+    <!--修改工种-->
+    <update id="UpdateWorktype" parameterType="java.util.Map">
+        UPDATE `worktype` SET `worktype_name`=#{worktype_name}, `content`=#{content}, `remark`=#{remark}
+        WHERE (`id`=#{id});
+    </update>
+
+    <!--分页模糊查询工种信息-->
+    <select id="FindWorktype" parameterType="java.util.Map" resultType="com.examination.entity.Worktype">
+        <bind name="page" value="pageSize*(pageNo-1)"></bind>
+        SELECT `id`, `worktype_name`, `content`, `remark` FROM `worktype`
+        <where>
+            <if test="worktype_name!=null and worktype_name!=''">
+                `worktype_name`like concat("%",#{worktype_name},"%")
+            </if>
+        </where>
+        limit #{page},#{pageSize}
+    </select>
+
+    <!--统计总数-->
+    <select id="Total" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(*) FROM `worktype`
+        <where>
+            <if test="worktype_name!=null and worktype_name!=''">
+                `worktype_name`like concat("%",#{worktype_name},"%")
+            </if>
+        </where>
+    </select>
+
+    <!--下拉框查询工种信息-->
+    <select id="SelectWorktype" parameterType="java.util.Map" resultType="com.examination.entity.Worktype">
+        SELECT `id`,`worktype_name` FROM `worktype`
+    </select>
+
+    <!--根据worktype_id查询工种信息-->
+    <select id="FindWorktypeByWorktypeId" parameterType="java.util.Map" resultType="com.examination.entity.Worktype">
+        SELECT `id`, `worktype_name`, `content`, `remark` FROM `worktype` where id=#{worktype_id}
+    </select>
+</mapper>
