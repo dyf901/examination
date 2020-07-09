@@ -1,7 +1,9 @@
 package com.examination.controller;
 
 import com.examination.entity.Staff;
+import com.examination.entity.Worktype;
 import com.examination.service.StaffService;
+import com.examination.service.WorktypeService;
 import com.examination.util.JsonResult;
 import com.examination.util.MyException;
 import com.examination.util.Page;
@@ -32,6 +34,8 @@ public class StaffController {
     @Autowired
     private StaffService staffService;//员工
 
+    @Autowired
+    private WorktypeService worktypeService;//工种
 
     @ApiOperation(value = "增加员工信息", notes = "")
     @PostMapping("/InsertStaff")
@@ -85,7 +89,7 @@ public class StaffController {
         return page;
     }
 
-    /*@ApiOperation(value = "批量导入", notes = "")
+    @ApiOperation(value = "批量导入", notes = "")
     @PostMapping("/import")
     public boolean addUser(@RequestParam("file") MultipartFile file) throws Exception {
         boolean notNull = false;
@@ -109,25 +113,6 @@ public class StaffController {
         if (sheet != null) {
             notNull = true;
         }
-
-        *//*Map<String, PictureData> maplist = null;
-        sheet = wb.getSheetAt(0);
-        // 判断用07还是03的方法获取图片
-        if (isExcel2003) {
-            maplist = getPictures1((HSSFSheet) sheet);
-        } else {
-            maplist = getPictures2((XSSFSheet) sheet);
-        }
-        try {
-            printImg(maplist);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            //释放map
-            if (maplist != null) {
-                maplist = null;
-            }
-        }*//*
 
         Staff staff;
         for (int r = 1; r <= sheet.getLastRowNum(); r++) {
@@ -158,20 +143,17 @@ public class StaffController {
             String address = row.getCell(5).getStringCellValue();//地址
             row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);//设置手机号格式
             String phone = row.getCell(6).getStringCellValue();//手机号
-            String worktype = row.getCell(7).getStringCellValue();//工种
-//            String img = row.getCell(12).getStringCellValue();//图片
-//            System.out.println("img" + img);
-//
-//            String img_url = null;
-//
-//            if (img.equals("null")) {
-//                img_url = "default.jpg";
-//
-//            } else {
-//                SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
-//                //System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-//                img_url = r + "." + df.format(new Date()) + ".jpg";
-//            }
+            String worktype_name = row.getCell(7).getStringCellValue();//工种
+
+            //根据表格里面的内容判断worktype_id多少
+            List<Worktype> worktypeList = worktypeService.SelectWorktype();
+            int worktype_id = 0;
+            for (int i = 0; i < worktypeList.size(); i++) {
+                Worktype worktype = worktypeList.get(i);
+                if (worktype.getWorktype_name().equals(worktype_name)) {
+                    worktype_id = worktype.getId();
+                }
+            }
 
             String img = "default.jpg";
 
@@ -188,7 +170,7 @@ public class StaffController {
             staff.setStaff_card(card);
             staff.setStaff_address(address);
             staff.setStaff_phone(phone);
-            staff.setWorktype(worktype);
+            staff.setWorktype_id(worktype_id);
             staff.setEntry_time(time);
             //添加到数组里
             staffList.add(staff);
@@ -206,7 +188,7 @@ public class StaffController {
             }
         }
         return notNull;
-    }*/
+    }
 
     /**
      * 获取图片和位置 (xls)

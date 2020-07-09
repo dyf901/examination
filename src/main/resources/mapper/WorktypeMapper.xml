@@ -43,7 +43,7 @@
     </select>
 
     <!--下拉框查询工种信息-->
-    <select id="SelectWorktype" parameterType="java.util.Map" resultType="com.examination.entity.Worktype">
+    <select id="SelectWorktype" resultType="com.examination.entity.Worktype">
         SELECT `id`,`worktype_name` FROM `worktype`
     </select>
 
