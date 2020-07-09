@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.examination.dao.TrainContentRecordDao">
+    <!--增加展馆培训记录-->
+    <insert id="InsertTrainContentRecord" parameterType="java.util.Map">
+        INSERT INTO `trainc_ontent_record`(`name`, `sex`, `age`, `img`, `uptime`, `content`) VALUES (#{name}, #{sex}, #{age}, #{img}, #{uptime}, #{content});
+    </insert>
+
+    <!--删除展馆配训记录-->
+    <delete id="DeleteTrainContentRecord" parameterType="java.util.Map">
+        DELETE FROM `trainc_ontent_record` WHERE `id`=#{id}
+    </delete>
+
+    <!--修改展馆培训记录-->
+    <update id="UpdateTrainContentRecord" parameterType="java.util.Map">
+        UPDATE `trainc_ontent_record` SET `name` = #{name}, `sex` = #{sex}, `age` = #{age}, `img` = #{img}, `content` = #{content} WHERE `id` = #{id};
+    </update>
+
+    <!--分页查询展馆培训记录-->
+    <select id="FindTrainContentRecord" parameterType="java.util.Map" resultType="com.examination.entity.TrainContentRecord">
+        <bind name="page" value="pageSize*(pageNo-1)"></bind>
+        SELECT `id`, `name`, `sex`, `age`, `img`, `uptime`, `content` FROM `trainc_ontent_record`
+        limit #{page},#{pageSize}
+    </select>
+
+    <!--统计总数-->
+    <select id="Total" resultType="long">
+        SELECT COUNT(id) FROM `trainc_ontent_record`
+    </select>
+</mapper>

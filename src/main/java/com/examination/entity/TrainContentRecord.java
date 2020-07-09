@@ -1,0 +1,113 @@
+package com.examination.entity;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@ApiModel(value = "TrainContentRecord" , description = "展馆培训记录")
+public class TrainContentRecord {
+    @ApiModelProperty(value = "展馆培训记录id" , name = "id")
+    private int id;
+
+    @ApiModelProperty(value = "员工姓名" , name = "name")
+    private String name;
+
+    @ApiModelProperty(value = "性别" , name = "sex")
+    private String sex;
+
+    @ApiModelProperty(value = "年龄" , name = "age")
+    private String age;
+
+    @ApiModelProperty(value = "员工照片" , name = "img")
+    private String img;
+
+    @ApiModelProperty(value = "上传时间" , name = "uptime")
+    private String uptime;
+
+    @ApiModelProperty(value = "培训内容" , name = "content")
+    private String content;
+
+    public TrainContentRecord(){
+        super();
+    }
+
+    public TrainContentRecord(int id, String name, String sex, String age, String img, String uptime, String content) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.img = img;
+        this.uptime = uptime;
+        this.content = content;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getUptime() {
+        return uptime;
+    }
+
+    public void setUptime(String uptime) {
+        this.uptime = uptime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age='" + age + '\'' +
+                ", img='" + img + '\'' +
+                ", uptime='" + uptime + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
+}
