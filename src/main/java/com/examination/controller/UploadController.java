@@ -24,7 +24,7 @@ public class UploadController {
         String extName = oldFileName.substring(lastDotIndex);
         String newName = UUID.randomUUID() + extName;
         File excelFile =
-                new File("/root/img/"//   /root/img/    E:/test/
+                new File("E:/test/"//   /root/img/    E:/test/
                         + newName);
         try {
             file.transferTo(excelFile);
@@ -43,7 +43,7 @@ public class UploadController {
             BufferedInputStream bis =
                     new BufferedInputStream(
                             new FileInputStream(
-                                    new File("/root/img/" + img_url)));//   /root/img/    E:/test/
+                                    new File("E:/test/" + img_url)));//   /root/img/    E:/test/
             int num;
             byte[] b = new byte[1024];
 
@@ -97,7 +97,7 @@ public class UploadController {
         }
         String uuid = UUID.randomUUID().toString().replaceAll("-" , "");
         String tempFileName = uuid + suffix;
-        String imgFilePath = "/root/img/" + tempFileName;//新生成的图片地址   //   /root/img/    E:/test/
+        String imgFilePath = "E:/test/" + tempFileName;//新生成的图片地址   //   /root/img/    E:/test/
         //String imgFilePath = "/img/wisdom_site/"+tempFileName;//新生成图片的服务器地址
         System.out.println(tempFileName);
         System.out.println(imgFilePath);

@@ -22,4 +22,19 @@ public class TrainContentService implements TrainContentDao {
     public List<TrainContent> FindTrainContentAll() {
         return trainContentDao.FindTrainContentAll();
     }
+
+    @Override
+    public int InsertTrainContent(Map map) {
+        return trainContentDao.InsertTrainContent(map);
+    }
+
+    @Override
+    public int DeleteTrainContent(Map map) {
+        return trainContentDao.DeleteTrainContent(map);
+    }
+
+    @Override
+    public int UpdateTrainContent(Map map) {
+        return trainContentDao.UpdateTrainContent(map);
+    }
 }
