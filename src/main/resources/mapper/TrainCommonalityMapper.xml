@@ -12,8 +12,11 @@
         LEFT JOIN `train_genre` g ON t.`genre_id`=g.`id`
         LEFT JOIN `train_type` l ON t.`type_id`=l.`id`
         <where>
+            <if test="commonality_name!=null and commonality_name!=''">
+                t.`commonality_name` like concat("%",#{commonality_name},"%")
+            </if>
             <if test="type_id!=null and type_id!=''">
-                t.`type_id`=#{type_id}
+                and t.`type_id`=#{type_id}
             </if>
             <if test="genre_id!=null and genre_id!=''">
                 and t.`genre_id`=#{genre_id}
@@ -26,11 +29,14 @@
     <select id="Total" parameterType="java.util.Map" resultType="long">
         SELECT COUNT(*) FROM `train_commonality`
         <where>
+            <if test="commonality_name!=null and commonality_name!=''">
+                t.`commonality_name` like concat("%",#{commonality_name},"%")
+            </if>
             <if test="type_id!=null and type_id!=''">
-                `type_id`=#{type_id}
+                and t.`type_id`=#{type_id}
             </if>
             <if test="genre_id!=null and genre_id!=''">
-                and `genre_id`=#{genre_id}
+                and t.`genre_id`=#{genre_id}
             </if>
         </where>
     </select>

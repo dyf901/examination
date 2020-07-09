@@ -16,7 +16,7 @@ public class Questions {
     @ApiModelProperty(value = "专业id" , name = "specialty_id")
     private int specialty_id;
 
-    @ApiModelProperty(value = "专业id" , name = "count")
+    @ApiModelProperty(value = "总数" , name = "count")
     private int count;
 
     @ApiModelProperty(value = "题目类型(选择,填空,判断,简答)" , name = "questions_type")
