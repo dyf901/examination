@@ -48,9 +48,9 @@ public class WorktypeController {
         return page;
     }
 
-    @ApiOperation(value = "下拉框查询站点信息" , notes = "测试数据:{\"section_id\":1,\"sub_id\":1}")
+    @ApiOperation(value = "下拉框查询工种信息" , notes = "测试数据:{\"section_id\":1,\"sub_id\":1}")
     @PostMapping("/SelectWorktype")
-    public List<Worktype> SelectWorktype(@RequestBody Map map) {
-        return worktypeService.SelectWorktype(map);
+    public List<Worktype> SelectWorktype() {
+        return worktypeService.SelectWorktype();
     }
 }
