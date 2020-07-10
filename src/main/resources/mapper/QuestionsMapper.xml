@@ -19,7 +19,7 @@
 
     <!--修改题目-->
     <update id="UpdateQuestions" parameterType="java.util.Map">
-        UPDATE `smart_site`.`questions` SET `knowledge_id`=#{knowledge_id}, `specialty_id`=#{specialty_id},
+        UPDATE `questions` SET `knowledge_id`=#{knowledge_id}, `specialty_id`=#{specialty_id},
         `questions_type`=#{questions_type}, `questions_content`=#{questions_content}, `select_A`=#{select_A},
         `select_B`=#{select_B}, `select_C`=#{select_C}, `select_D`=#{select_D}, `select_answer`=#{select_answer},
         `judge_answer`=#{judge_answer}, `gap_answer`=#{gap_answer}, `short_answer`=#{short_answer} WHERE (`id`=#{id});
@@ -31,8 +31,8 @@
         SELECT q.`id`, q.`knowledge_id`, q.`specialty_id`, q.`questions_type`, q.`questions_content`,
         q.`select_A`, q.`select_B`, q.`select_C`, q.`select_D`, q.`select_answer`, q.`judge_answer`, q.`gap_answer`,
         q.`short_answer`,k.`knowledge_name` as `knowledge_name` ,s.`specialty_name` as `specialty_name` FROM `questions` q
-        INNER JOIN `smart_site`.`knowledge` k ON q.`knowledge_id`=k.`id`
-        INNER JOIN `smart_site`.`specialty` s ON q.`specialty_id`=s.`id`
+        INNER JOIN `knowledge` k ON q.`knowledge_id`=k.`id`
+        INNER JOIN `specialty` s ON q.`specialty_id`=s.`id`
         <where>
             <if test="knowledge_id!=null and knowledge_id!=''">
                 and q.`knowledge_id`=#{knowledge_id}
@@ -68,8 +68,8 @@
         SELECT q.`id`, q.`knowledge_id`, q.`specialty_id`, q.`questions_type`, q.`questions_content`,
         q.`select_A`, q.`select_B`, q.`select_C`, q.`select_D`, q.`select_answer`, q.`judge_answer`, q.`gap_answer`,
         q.`short_answer`,k.`knowledge_name` as `knowledge_name` ,s.`specialty_name` as `specialty_name` FROM `questions` q
-        INNER JOIN `smart_site`.`knowledge` k ON q.`knowledge_id`=k.`id`
-        INNER JOIN `smart_site`.`specialty` s ON q.`specialty_id`=s.`id`
+        INNER JOIN `knowledge` k ON q.`knowledge_id`=k.`id`
+        INNER JOIN `specialty` s ON q.`specialty_id`=s.`id`
         WHERE q.`id`=#{id}
     </select>
 
@@ -79,15 +79,15 @@
     </select>
 
     <select id="FindQuestionByQuestionTypeP" parameterType="java.util.Map" resultType="int">
-        SELECT `id` FROM `smart_site`.`questions` WHERE questions_type='判断题' ORDER BY rand() limit #{countP};
+        SELECT `id` FROM `questions` WHERE questions_type='判断题' ORDER BY rand() limit #{countP};
     </select>
 
     <select id="FindQuestionByQuestionTypeT" parameterType="java.util.Map" resultType="int">
-        SELECT `id` FROM `smart_site`.`questions` WHERE questions_type='填空题' ORDER BY rand() limit #{countT};
+        SELECT `id` FROM `questions` WHERE questions_type='填空题' ORDER BY rand() limit #{countT};
     </select>
 
     <select id="FindQuestionByQuestionTypeJ" parameterType="java.util.Map" resultType="int">
-        SELECT `id` FROM `smart_site`.`questions` WHERE questions_type='简答题' ORDER BY rand() limit #{countJ};
+        SELECT `id` FROM `questions` WHERE questions_type='简答题' ORDER BY rand() limit #{countJ};
     </select>
 
     <!--统计试题总数-->

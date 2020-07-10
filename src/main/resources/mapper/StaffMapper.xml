@@ -91,7 +91,7 @@
     <select id="FindStaff" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
         SELECT s.`id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
-        s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,w.`worktype_name` AS `worktype_name` FROM `staff` s
+        s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,s.`password`,w.`worktype_name` AS `worktype_name` FROM `staff` s
         left JOIN `worktype` w on s.`worktype_id`=w.`id`
         <where>
             <if test="staff_name!=null and staff_name!=''">
@@ -133,7 +133,7 @@
     <!--根据staff_phone查询员工信息-->
     <select id="FindStaffByStaffPhone" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
         SELECT s.`id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
-        s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,w.`worktype_name` AS `worktype_name` FROM `staff` s
+        s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,s.`password`,w.`worktype_name` AS `worktype_name` FROM `staff` s
         left JOIN `worktype` w on s.`worktype_id`=w.`id`
         WHERE `staff_phone`=#{staff_phone}
     </select>
