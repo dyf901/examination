@@ -12,6 +12,15 @@
         #{select_B}, #{select_C}, #{select_D}, #{select_answer}, #{judge_answer}, #{gap_answer}, #{short_answer});
     </insert>
 
+    <!--增加题目-->
+    <insert id="InsertQuestionsQ" parameterType="com.examination.entity.Questions">
+        INSERT INTO `questions` (`knowledge_id`, `specialty_id`, `questions_type`,
+        `questions_content`, `select_A`, `select_B`, `select_C`, `select_D`, `select_answer`, `judge_answer`,
+        `gap_answer`, `short_answer`)
+        VALUES (#{knowledge_id}, #{specialty_id}, #{questions_type}, #{questions_content}, #{select_A},
+        #{select_B}, #{select_C}, #{select_D}, #{select_answer}, #{judge_answer}, #{gap_answer}, #{short_answer});
+    </insert>
+
     <!--删除题目-->
     <delete id="DeleteQuestions" parameterType="java.util.Map">
         DELETE FROM `questions` WHERE `id`=#{id}
@@ -97,15 +106,15 @@
 
     <select id="CountByKnowledge" resultType="com.examination.entity.Questions">
         SELECT q.`knowledge_id`, k.`knowledge_name` as `knowledge_name`,COUNT(*) as `count` FROM `questions` q
-        INNER JOIN `smart_site`.`knowledge` k ON q.`knowledge_id`=k.`id`
-        INNER JOIN `smart_site`.`specialty` s ON q.`specialty_id`=s.`id`
+        INNER JOIN `knowledge` k ON q.`knowledge_id`=k.`id`
+        INNER JOIN `specialty` s ON q.`specialty_id`=s.`id`
         GROUP BY q.`knowledge_id`
     </select>
 
     <select id="CountBySpecialty" resultType="com.examination.entity.Questions">
         SELECT q.`specialty_id`,s.`specialty_name` as `specialty_name`,COUNT(*) as `count` FROM `questions` q
-        INNER JOIN `smart_site`.`knowledge` k ON q.`knowledge_id`=k.`id`
-        INNER JOIN `smart_site`.`specialty` s ON q.`specialty_id`=s.`id`
+        INNER JOIN `knowledge` k ON q.`knowledge_id`=k.`id`
+        INNER JOIN `specialty` s ON q.`specialty_id`=s.`id`
         GROUP BY q.`specialty_id`
     </select>
 </mapper>

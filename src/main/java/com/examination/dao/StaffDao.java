@@ -32,4 +32,6 @@ public interface StaffDao {
 
     //根据staff_phone查询员工信息
     int CountStaff(String staff_phone);
+
+    int CountAll();
 }

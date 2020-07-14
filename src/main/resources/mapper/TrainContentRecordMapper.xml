@@ -5,7 +5,7 @@
 <mapper namespace="com.examination.dao.TrainContentRecordDao">
     <!--增加展馆培训记录-->
     <insert id="InsertTrainContentRecord" parameterType="java.util.Map">
-        INSERT INTO `trainc_ontent_record`(`name`, `sex`, `age`, `img`, `uptime`, `content`) VALUES (#{name}, #{sex}, #{age}, #{img}, #{uptime}, #{content});
+        INSERT INTO `trainc_ontent_record`(`name`, `sex`, `card`, `age`, `img`, `uptime`, `content`) VALUES (#{name}, #{sex}, #{card}, #{age}, #{img}, #{uptime}, #{content});
     </insert>
 
     <!--删除展馆配训记录-->
@@ -15,13 +15,13 @@
 
     <!--修改展馆培训记录-->
     <update id="UpdateTrainContentRecord" parameterType="java.util.Map">
-        UPDATE `trainc_ontent_record` SET `name` = #{name}, `sex` = #{sex}, `age` = #{age}, `img` = #{img}, `content` = #{content} WHERE `id` = #{id};
+        UPDATE `trainc_ontent_record` SET `name` = #{name}, `card` = #{card}, `sex` = #{sex}, `age` = #{age}, `img` = #{img}, `content` = #{content} WHERE `id` = #{id};
     </update>
 
     <!--分页查询展馆培训记录-->
     <select id="FindTrainContentRecord" parameterType="java.util.Map" resultType="com.examination.entity.TrainContentRecord">
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
-        SELECT `id`, `name`, `sex`, `age`, `img`, `uptime`, `content` FROM `trainc_ontent_record`
+        SELECT `id`, `name`, `card`, `sex`, `age`, `img`, `uptime`, `content` FROM `trainc_ontent_record`
         limit #{page},#{pageSize}
     </select>
 

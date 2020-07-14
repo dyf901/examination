@@ -49,6 +49,7 @@ public class TrainController {
     @ApiOperation(value = "分页我的课程" , notes = "")
     @PostMapping("/FindTrain")
     public Page<Train> FindTrain(@RequestBody Map map) {
+        System.out.println(map);
         Page<Train> page = new Page<Train>();
         page.setPageNo((Integer) map.get("pageNo"));
         page.setPageSize((Integer) map.get("pageSize"));

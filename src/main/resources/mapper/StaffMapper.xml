@@ -142,4 +142,9 @@
     <select id="CountStaff"  resultType="int">
         SELECT COUNT(id) FROM `staff` WHERE `staff_phone`=#{staff_phone}
     </select>
+
+    <!--统计总数-->
+    <select id="CountAll"  resultType="int">
+        SELECT COUNT(*) FROM `staff`
+    </select>
 </mapper>

@@ -13,6 +13,9 @@ public class TrainContentRecord {
     @ApiModelProperty(value = "员工姓名" , name = "name")
     private String name;
 
+    @ApiModelProperty(value = "身份证号" , name = "card")
+    private String card;
+
     @ApiModelProperty(value = "性别" , name = "sex")
     private String sex;
 
@@ -32,9 +35,10 @@ public class TrainContentRecord {
         super();
     }
 
-    public TrainContentRecord(int id, String name, String sex, String age, String img, String uptime, String content) {
+    public TrainContentRecord(int id, String name, String card, String sex, String age, String img, String uptime, String content) {
         this.id = id;
         this.name = name;
+        this.card = card;
         this.sex = sex;
         this.age = age;
         this.img = img;
@@ -98,11 +102,20 @@ public class TrainContentRecord {
         this.content = content;
     }
 
+    public String getCard() {
+        return card;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", card='" + card + '\'' +
                 ", sex='" + sex + '\'' +
                 ", age='" + age + '\'' +
                 ", img='" + img + '\'' +

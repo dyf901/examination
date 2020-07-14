@@ -66,4 +66,9 @@ public class StaffService implements StaffDao {
     public int CountStaff(String staff_phone) {
         return staffDao.CountStaff(staff_phone);
     }
+
+    @Override
+    public int CountAll() {
+        return staffDao.CountAll();
+    }
 }

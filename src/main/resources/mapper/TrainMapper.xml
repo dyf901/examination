@@ -25,12 +25,28 @@
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
         SELECT t.`id`, t.`train_name`, t.`content`,t.`video_url`, t.`Ttype_id`, t.`img`, p.`Ttype_name` AS `Ttype_name` FROM `train` t
         left JOIN `ttype` p ON t.`Ttype_id`=p.`id`
+        <where>
+            <if test="train_name!=null and train_name!=''">
+                t.`train_name` like concat("%",#{train_name},"%")
+            </if>
+            <if test="Ttype_id!=null and Ttype_id!=''">
+                and t.`Ttype_id`=#{Ttype_id}
+            </if>
+        </where>
         limit #{page},#{pageSize}
     </select>
 
     <!--统计总数-->
     <select id="Total" parameterType="java.util.Map" resultType="long">
         SELECT COUNT(*) FROM `train`
+        <where>
+            <if test="train_name!=null and train_name!=''">
+                `train_name` like concat("%",#{train_name},"%")
+            </if>
+            <if test="Ttype_id!=null and Ttype_id!=''">
+                and `Ttype_id`=#{Ttype_id}
+            </if>
+        </where>
     </select>
 
     <!--根据id查询培训内容-->

@@ -47,6 +47,8 @@ public class StaffController {
             Date now = new Date();
             String time = format.format(now);
             map.put("entry_time", time);
+            String staff_province = ProvinceUtil.Province((String) map.get("staff_address"));
+            map.put("staff_province",staff_province);
             int i = staffService.InsertStaff(map);
             if (i == 1) {
                 jsonResult.setCode(200);
@@ -75,6 +77,7 @@ public class StaffController {
     @ApiOperation(value = "修改员工信息", notes = "")
     @PostMapping("/UpdateStaff")
     public boolean UpdateStaff(@RequestBody Map map) {
+        System.out.println(map);
         return staffService.UpdateStaff(map) == 1;
     }
 
@@ -121,6 +124,7 @@ public class StaffController {
                 continue;
             }
 
+            row.getCell(4).setCellType(Cell.CELL_TYPE_STRING);
             String card1 = row.getCell(4).getStringCellValue();//身份证号
             if (card1.equals("")) {
                 continue;
@@ -161,6 +165,8 @@ public class StaffController {
             Date now = new Date();
             String time = format.format(now);
 
+            String province = ProvinceUtil.Province(address);
+
             //添加到实体类
             staff.setStaff_name(name);
             staff.setStaff_age(age);
@@ -172,6 +178,7 @@ public class StaffController {
             staff.setStaff_phone(phone);
             staff.setWorktype_id(worktype_id);
             staff.setEntry_time(time);
+            staff.setStaff_province(province);
             //添加到数组里
             staffList.add(staff);
         }

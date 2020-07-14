@@ -7,7 +7,7 @@
     <select id="FindTrainCommonality" parameterType="java.util.Map"
             resultType="com.examination.entity.TrainCommonality">
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
-        SELECT t.`id`, t.`type_id`, t.`genre_id`, t.`commonality_name`, t.`content`, t.`video_url`, g.`genre_name` as
+        SELECT t.`id`, t.`type_id`, t.`genre_id`, t.`commonality_name`, t.`content`, t.`img`, t.`video_url`, g.`genre_name` as
         `genre_name`, l.`type_name` as `type_name` FROM `train_commonality` t
         LEFT JOIN `train_genre` g ON t.`genre_id`=g.`id`
         LEFT JOIN `train_type` l ON t.`type_id`=l.`id`
@@ -30,13 +30,13 @@
         SELECT COUNT(*) FROM `train_commonality`
         <where>
             <if test="commonality_name!=null and commonality_name!=''">
-                t.`commonality_name` like concat("%",#{commonality_name},"%")
+                `commonality_name` like concat("%",#{commonality_name},"%")
             </if>
             <if test="type_id!=null and type_id!=''">
-                and t.`type_id`=#{type_id}
+                and `type_id`=#{type_id}
             </if>
             <if test="genre_id!=null and genre_id!=''">
-                and t.`genre_id`=#{genre_id}
+                and `genre_id`=#{genre_id}
             </if>
         </where>
     </select>

@@ -19,6 +19,11 @@ public class QuestionsService implements QuestionsDao {
         return questionsDao.InsertQuestions(map);
     }
 
+    @Override
+    public int InsertQuestionsQ(Questions questions) {
+        return questionsDao.InsertQuestionsQ(questions);
+    }
+
     //删除题目
     @Override
     public int DeleteQuestions(Map map) {

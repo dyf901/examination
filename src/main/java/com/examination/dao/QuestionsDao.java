@@ -9,6 +9,9 @@ public interface QuestionsDao {
     //增加题目
     int InsertQuestions(Map map);
 
+    //增加题目
+    int InsertQuestionsQ(Questions questions);
+
     //删除题目
     int DeleteQuestions(Map map);
 

@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 @Api(description = "展馆培训记录接口")
@@ -23,6 +25,10 @@ public class TrainContentRecordController {
     @PostMapping("/InsertTrainContentRecord")
     public JsonResult InsertTrainContentRecord(@RequestBody Map map){
         JsonResult jsonResult = new JsonResult();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        String time = format.format(now);
+        map.put("uptime", time);
         int i = trainContentRecordService.InsertTrainContentRecord(map);
         if(i==1){
             jsonResult.setCode(200);
