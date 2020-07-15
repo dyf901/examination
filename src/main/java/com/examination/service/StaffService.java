@@ -71,4 +71,9 @@ public class StaffService implements StaffDao {
     public int CountAll() {
         return staffDao.CountAll();
     }
+
+    @Override
+    public Staff FindStaffByStaffCard(Map map) {
+        return staffDao.FindStaffByStaffCard(map);
+    }
 }

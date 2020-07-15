@@ -23,8 +23,8 @@
     <select id="FindBehaviorRecord" parameterType="java.util.Map" resultType="com.examination.entity.BehaviorRecord">
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
         SELECT b.`id`, b.`staff_id`, b.`behavior_id`, b.`uptime`, b.`remark`, s.`staff_name` as staff_name, a.`behavior_name` as behavior_name FROM `behavior_record` b
-        LEFT JOIN `smart_site`.`staff` s ON b.`staff_id`=s.`id`
-        LEFT JOIN `smart_site`.`behavior` a ON b.`behavior_id`=a.`id`
+        LEFT JOIN `staff` s ON b.`staff_id`=s.`id`
+        LEFT JOIN `behavior` a ON b.`behavior_id`=a.`id`
         <where>
             <if test="behavior_id!=null and behavior_id!=''">
                 b.`behavior_id`=#{behavior_id}
@@ -48,8 +48,8 @@
             resultType="com.examination.entity.BehaviorRecord">
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
         SELECT b.`id`, b.`staff_id`, b.`behavior_id`, b.`uptime`, b.`remark`, s.`staff_name` as staff_name, a.`behavior_name` as behavior_name FROM `behavior_record` b
-        LEFT JOIN `smart_site`.`staff` s ON b.`staff_id`=s.`id`
-        LEFT JOIN `smart_site`.`behavior` a ON b.`behavior_id`=a.`id`
+        LEFT JOIN `staff` s ON b.`staff_id`=s.`id`
+        LEFT JOIN `behavior` a ON b.`behavior_id`=a.`id`
         WHERE b.`staff_id`=#{staff_id}
         limit #{page},#{pageSize}
     </select>
@@ -63,11 +63,11 @@
     <select id="ceshi" parameterType="java.util.Map" resultType="com.examination.entity.BehaviorRecord">
         SELECT b.`id`, b.`staff_id`, b.`behavior_id`, b.`section_id`, b.`station_id`, b.`uptime`, b.`remark`,
         s.`staff_name` as staff_name, a.`behavior_name` as behavior_name,l.station_name as station_name,d.section_name
-        as section_name FROM `smart_site`.`behavior_record` b
-        INNER JOIN `smart_site`.`staff` s ON b.`staff_id`=s.`id`
-        INNER JOIN `smart_site`.`behavior` a ON b.`behavior_id`=a.`id`
-        INNER JOIN `smart_site`.`station` l ON b.`station_id`=l.`id`
-        INNER JOIN `smart_site`.`section` d ON b.`section_id`=d.`id`
+        as section_name FROM `behavior_record` b
+        INNER JOIN `staff` s ON b.`staff_id`=s.`id`
+        INNER JOIN `behavior` a ON b.`behavior_id`=a.`id`
+        INNER JOIN `station` l ON b.`station_id`=l.`id`
+        INNER JOIN `section` d ON b.`section_id`=d.`id`
         WHERE b.`staff_id`=#{staff_id}
     </select>
 
@@ -76,11 +76,11 @@
             resultType="com.examination.entity.BehaviorRecord">
         SELECT b.`id`, b.`staff_id`, b.`behavior_id`, b.`section_id`, b.`station_id`, b.`uptime`, b.`remark`,
         s.`staff_name` as staff_name, a.`behavior_name` as behavior_name,l.station_name as station_name,d.section_name
-        as section_name FROM `smart_site`.`behavior_record` b
-        INNER JOIN `smart_site`.`staff` s ON b.`staff_id`=s.`id`
-        INNER JOIN `smart_site`.`behavior` a ON b.`behavior_id`=a.`id`
-        INNER JOIN `smart_site`.`station` l ON b.`station_id`=l.`id`
-        INNER JOIN `smart_site`.`section` d ON b.`section_id`=d.`id`
+        as section_name FROM `behavior_record` b
+        INNER JOIN `staff` s ON b.`staff_id`=s.`id`
+        INNER JOIN `behavior` a ON b.`behavior_id`=a.`id`
+        INNER JOIN `station` l ON b.`station_id`=l.`id`
+        INNER JOIN `section` d ON b.`section_id`=d.`id`
         WHERE b.`staff_id`=#{staff_id}
     </select>
 </mapper>

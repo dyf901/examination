@@ -135,7 +135,15 @@
         SELECT s.`id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
         s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,s.`password`,w.`worktype_name` AS `worktype_name` FROM `staff` s
         left JOIN `worktype` w on s.`worktype_id`=w.`id`
-        WHERE `staff_phone`=#{staff_phone}
+        WHERE s.`staff_phone`=#{staff_phone}
+    </select>
+
+    <!--根据staff_phone查询员工信息-->
+    <select id="FindStaffByStaffCard" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
+        SELECT s.`id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
+        s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,s.`password`,w.`worktype_name` AS `worktype_name` FROM `staff` s
+        left JOIN `worktype` w on s.`worktype_id`=w.`id`
+        WHERE s.`staff_card`=#{staff_card}
     </select>
 
     <!--根据staff_phone查询员工信息S-->

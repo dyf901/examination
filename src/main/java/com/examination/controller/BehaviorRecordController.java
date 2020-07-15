@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 @Api(description = "行为记录接口")
@@ -27,8 +29,12 @@ public class BehaviorRecordController {
     @ApiOperation(value = "增加行为记录" , notes = "测试数据:{\"staff_card\":\"340000000000000000\",\"behavior_id\":1,\"section_id\":1,\"station_idr\":1,\"remark\":\"表现优异\"}")
     @PostMapping("/InsertBehaviorRecord")
     public boolean InsertBehaviorRecord(@RequestBody Map map) {
-        //Staff staff = staffService.FindStaffByStaff_card(map);
-        //map.put("staff_id" , staff.getId());
+        Staff staff = staffService.FindStaffByStaffCard(map);
+        map.put("staff_id" , staff.getId());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        String time = format.format(now);
+        map.put("uptime", time);
         return behaviorRecordService.InsertBehaviorRecord(map) == 1;
     }
 

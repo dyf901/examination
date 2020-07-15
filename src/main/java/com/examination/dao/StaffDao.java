@@ -34,4 +34,7 @@ public interface StaffDao {
     int CountStaff(String staff_phone);
 
     int CountAll();
+
+    //StaffCard
+    Staff FindStaffByStaffCard(Map map);
 }
