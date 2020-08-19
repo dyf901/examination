@@ -10,6 +10,9 @@ public class Exam {
     @ApiModelProperty(value = "考试id" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "发布时间" , name = "exam_name")
     private String exam_name;
 
@@ -53,8 +56,9 @@ public class Exam {
         super();
     }
 
-    public Exam(int id, String exam_name, int specialty_id, String specialty_name, int examination_id, String examination_name, int worktype_id, String worktype_name, int exam_time, String start_time, String end_time, String up_time, Long start_timeC, Long end_timeC) {
+    public Exam(int id, int user_id, String exam_name, int specialty_id, String specialty_name, int examination_id, String examination_name, int worktype_id, String worktype_name, int exam_time, String start_time, String end_time, String up_time, Long start_timeC, Long end_timeC) {
         this.id = id;
+        this.user_id = user_id;
         this.exam_name = exam_name;
         this.specialty_id = specialty_id;
         this.specialty_name = specialty_name;
@@ -182,10 +186,19 @@ public class Exam {
         this.exam_name = exam_name;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
-        return "Exam{" +
+        return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", exam_name='" + exam_name + '\'' +
                 ", specialty_id=" + specialty_id +
                 ", specialty_name='" + specialty_name + '\'' +

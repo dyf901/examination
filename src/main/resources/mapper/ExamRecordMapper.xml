@@ -5,9 +5,9 @@
 <mapper namespace="com.examination.dao.ExamRecordDao">
     <!--增加考试记录-->
     <insert id="InsertExamRecord" parameterType="java.util.Map">
-        INSERT INTO `exam_record` (`exam_id`, `staff_id`, `exam_count`, `exam_time`,
+        INSERT INTO `exam_record` (`user_id`,`exam_id`, `staff_id`, `exam_count`, `exam_time`,
         `exam_result`, `exam_timeC`)
-        VALUES (#{exam_id}, #{staff_id}, #{exam_count}, #{exam_time}, #{exam_result}, #{exam_timeC});
+        VALUES (#{user_id}, #{exam_id}, #{staff_id}, #{exam_count}, #{exam_time}, #{exam_result}, #{exam_timeC});
     </insert>
 
     <!--删除考试记录-->
@@ -22,6 +22,7 @@
         e.`exam_timeC` FROM `exam_record` e
         INNER JOIN `exam` r ON e.`exam_id`=r.`id`
         INNER JOIN `staff` s ON e.`staff_id`=s.`id`
+        WHERE `user_id`=#{user_id}
         ORDER BY e.`exam_time` DESC
         limit #{page},#{pageSize}
     </select>
@@ -55,11 +56,11 @@
 
     <!--统计考试通过人数-->
     <select id="CountT" resultType="int">
-        SELECT COUNT(*) FROM `exam_record` WHERE `exam_result`='合格'
+        SELECT COUNT(*) FROM `exam_record` WHERE `exam_result`='合格' and `user_id`=#{user_id}
     </select>
 
     <!--统计考试人数-->
     <select id="CountAll" resultType="int">
-        SELECT COUNT(*) FROM `exam_record`
+        SELECT COUNT(*) FROM `exam_record` WHERE `user_id`=#{user_id}
     </select>
 </mapper>

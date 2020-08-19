@@ -77,7 +77,7 @@ public class TrainContentRecordController {
         page.setPageNo((Integer) map.get("pageNo"));
         page.setPageSize((Integer) map.get("pageSize"));
         page.setItems(trainContentRecordService.FindTrainContentRecord(map));
-        page.setTotal(trainContentRecordService.Total());
+        page.setTotal(trainContentRecordService.Total(map));
         return page;
     }
 }

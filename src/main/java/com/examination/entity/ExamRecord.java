@@ -10,6 +10,9 @@ public class ExamRecord {
     @ApiModelProperty(value = "考试记录id" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "考试id" , name = "exam_id")
     private int exam_id;
 
@@ -38,8 +41,9 @@ public class ExamRecord {
         super();
     }
 
-    public ExamRecord(int id, int exam_id, String exam_name, int staff_id, String staff_name, int exam_count, String exam_time, String exam_result, Long exam_timeC) {
+    public ExamRecord(int id, int user_id, int exam_id, String exam_name, int staff_id, String staff_name, int exam_count, String exam_time, String exam_result, Long exam_timeC) {
         this.id = id;
+        this.user_id = user_id;
         this.exam_id = exam_id;
         this.exam_name = exam_name;
         this.staff_id = staff_id;
@@ -122,10 +126,19 @@ public class ExamRecord {
         this.staff_name = staff_name;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", exam_id=" + exam_id +
                 ", exam_name='" + exam_name + '\'' +
                 ", staff_id=" + staff_id +

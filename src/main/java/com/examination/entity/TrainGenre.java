@@ -10,6 +10,9 @@ public class TrainGenre {
     @ApiModelProperty(value = "ID" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "类型名称" , name = "genre_name")
     private String genre_name;
 
@@ -17,8 +20,9 @@ public class TrainGenre {
         super();
     }
 
-    public TrainGenre(int id, String genre_name) {
+    public TrainGenre(int id, int user_id, String genre_name) {
         this.id = id;
+        this.user_id = user_id;
         this.genre_name = genre_name;
     }
 
@@ -38,10 +42,19 @@ public class TrainGenre {
         this.genre_name = genre_name;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", genre_name='" + genre_name + '\'' +
                 '}';
     }

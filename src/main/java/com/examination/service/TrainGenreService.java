@@ -15,7 +15,7 @@ public class TrainGenreService implements TrainGenreDao {
 
     //下拉框查询建造类型
     @Override
-    public List<TrainGenre> SelectTrainGenre() {
-        return trainGenreDao.SelectTrainGenre();
+    public List<TrainGenre> SelectTrainGenre(Map map) {
+        return trainGenreDao.SelectTrainGenre(map);
     }
 }

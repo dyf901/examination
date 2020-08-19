@@ -10,6 +10,9 @@ public class Ttype {
     @ApiModelProperty(value = "ID" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "类型名称" , name = "Ttype_name")
     private String Ttype_name;
 
@@ -17,8 +20,9 @@ public class Ttype {
         super();
     }
 
-    public Ttype(int id, String ttype_name) {
+    public Ttype(int id, int user_id, String ttype_name) {
         this.id = id;
+        this.user_id = user_id;
         Ttype_name = ttype_name;
     }
 
@@ -38,10 +42,19 @@ public class Ttype {
         Ttype_name = ttype_name;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", Ttype_name='" + Ttype_name + '\'' +
                 '}';
     }

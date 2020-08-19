@@ -5,8 +5,8 @@
 <mapper namespace="com.examination.dao.BehaviorRecordDao">
     <!--增加行为记录-->
     <insert id="InsertBehaviorRecord" parameterType="java.util.Map">
-        INSERT INTO `behavior_record` (`staff_id`, `behavior_id`,`uptime`,`remark`)
-        VALUES (#{staff_id}, #{behavior_id}, #{uptime}, #{remark});
+        INSERT INTO `behavior_record` (`user_id`,`staff_id`, `behavior_id`,`uptime`,`remark`)
+        VALUES (#{user_id},#{staff_id}, #{behavior_id}, #{uptime}, #{remark});
     </insert>
 
     <!--删除行为记录-->
@@ -22,10 +22,11 @@
     <!--分页模糊查询行为记录-->
     <select id="FindBehaviorRecord" parameterType="java.util.Map" resultType="com.examination.entity.BehaviorRecord">
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
-        SELECT b.`id`, b.`staff_id`, b.`behavior_id`, b.`uptime`, b.`remark`, s.`staff_name` as staff_name, a.`behavior_name` as behavior_name FROM `behavior_record` b
+        SELECT b.`id`, b.`user_id`, b.`staff_id`, b.`behavior_id`, b.`uptime`, b.`remark`, s.`staff_name` as staff_name, a.`behavior_name` as behavior_name FROM `behavior_record` b
         LEFT JOIN `staff` s ON b.`staff_id`=s.`id`
         LEFT JOIN `behavior` a ON b.`behavior_id`=a.`id`
         <where>
+            b.`user_id`=#{user_id}
             <if test="behavior_id!=null and behavior_id!=''">
                 b.`behavior_id`=#{behavior_id}
             </if>
@@ -37,6 +38,7 @@
     <select id="Total" parameterType="java.util.Map" resultType="long">
         SELECT COUNT(id) FROM `behavior_record`
         <where>
+            `user_id`=#{user_id}
             <if test="behavior_id!=null and behavior_id!=''">
                 `behavior_id`=#{behavior_id}
             </if>

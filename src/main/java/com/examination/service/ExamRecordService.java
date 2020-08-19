@@ -29,8 +29,8 @@ public class ExamRecordService implements ExamRecordDao {
     }
 
     @Override
-    public long Total() {
-        return examRecordDao.Total();
+    public long Total(Map map) {
+        return examRecordDao.Total(map);
     }
 
     @Override
@@ -44,12 +44,12 @@ public class ExamRecordService implements ExamRecordDao {
     }
 
     @Override
-    public int CountT() {
-        return examRecordDao.CountT();
+    public int CountT(Map map) {
+        return examRecordDao.CountT(map);
     }
 
     @Override
-    public int CountAll() {
-        return examRecordDao.CountAll();
+    public int CountAll(Map map) {
+        return examRecordDao.CountAll(map);
     }
 }

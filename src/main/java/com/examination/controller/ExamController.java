@@ -68,6 +68,7 @@ public class ExamController {
     @PostMapping("/FindExamNew")
     public JsonResult FindExamNew(@RequestBody Map map) {
         JsonResult jsonResult = new JsonResult();
+        System.out.println(map);
         jsonResult.setData(examService.FindExamNew(map));
         return jsonResult;
     }

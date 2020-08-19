@@ -5,7 +5,7 @@
 <mapper namespace="com.examination.dao.SpecialtyDao">
     <!--增加专业类型-->
     <insert id="InsertSpecialty" parameterType="java.util.Map">
-        INSERT INTO `specialty` (`specialty_name`) VALUES (#{specialty_name});
+        INSERT INTO `specialty` (`user_id`,`specialty_name`) VALUES (#{user_id},#{specialty_name});
     </insert>
 
     <!--删除专业类型-->
@@ -22,16 +22,17 @@
     <select id="FindSpecialty" parameterType="java.util.Map" resultType="com.examination.entity.Specialty">
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
         SELECT `id`, `specialty_name` FROM `specialty`
+        WHERE `user_id`=#{user_id}
         limit #{page},#{pageSize}
     </select>
 
     <!--统计总数-->
     <select id="Total" resultType="long">
-        SELECT COUNT(*) FROM `specialty`
+        SELECT COUNT(*) FROM `specialty` WHERE `user_id`=#{user_id}
     </select>
 
     <!--下拉框查询专业类型-->
     <select id="SelectSpecialty"  resultType="com.examination.entity.Specialty">
-        SELECT `id`, `specialty_name` FROM `specialty`
+        SELECT `id`, `specialty_name` FROM `specialty` WHERE `user_id`=#{user_id}
     </select>
 </mapper>

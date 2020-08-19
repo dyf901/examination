@@ -5,7 +5,7 @@
 <mapper namespace="com.examination.dao.BehaviorDao">
     <!--增加行为类型-->
     <insert id="InsertBehavior" parameterType="java.util.Map">
-        INSERT INTO `behavior` (`behavior_name`,`detail`, `remark`) VALUES (#{behavior_name}, #{detail}, #{remark});
+        INSERT INTO `behavior` (`user_id`,`behavior_name`,`detail`, `remark`) VALUES (#{user_id}, #{behavior_name}, #{detail}, #{remark});
     </insert>
 
     <!--删除行为类型-->
@@ -24,6 +24,7 @@
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
         SELECT `id`, `behavior_name`,`detail`, `remark` FROM `behavior`
         <where>
+            `user_id`=#{user_id}
             <if test="behavior_name!=null and behavior_name!=''">
                `behavior_name` like concat("%",#{behavior_name},"%")
             </if>
@@ -35,6 +36,7 @@
     <select id="Total" parameterType="java.util.Map" resultType="long">
         SELECT COUNT(id) FROM `behavior`
         <where>
+            `user_id`=#{user_id}
             <if test="behavior_name!=null and behavior_name!=''">
                `behavior_name` like concat("%",#{behavior_name},"%")
             </if>
@@ -43,6 +45,6 @@
 
     <!--行为类型下拉框-->
     <select id="SelectBehavior" resultType="com.examination.entity.BehaviorRecord">
-        SELECT `id`, `behavior_name` FROM `behavior`
+        SELECT `id`, `behavior_name` FROM `behavior` WHERE `user_id`=#{user_id}
     </select>
 </mapper>

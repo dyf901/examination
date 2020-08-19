@@ -21,7 +21,7 @@ public class TrainGenreController {
 
     @ApiOperation(value = "下拉框查询培训类型" , notes = "")
     @PostMapping("/SelectTrainGenre")
-    public List<TrainGenre> SelectTrainGenre() {
-        return trainGenreService.SelectTrainGenre();
+    public List<TrainGenre> SelectTrainGenre(@RequestBody Map map) {
+        return trainGenreService.SelectTrainGenre(map);
     }
 }

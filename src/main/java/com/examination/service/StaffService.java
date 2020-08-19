@@ -68,8 +68,8 @@ public class StaffService implements StaffDao {
     }
 
     @Override
-    public int CountAll() {
-        return staffDao.CountAll();
+    public int CountAll(Map map) {
+        return staffDao.CountAll(map);
     }
 
     @Override

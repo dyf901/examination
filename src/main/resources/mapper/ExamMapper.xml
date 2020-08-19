@@ -5,9 +5,9 @@
 <mapper namespace="com.examination.dao.ExamDao">
     <!--增加考试-->
     <insert id="InsertExam" parameterType="java.util.Map">
-        INSERT INTO `exam` (`exam_name`, `specialty_id`, `examination_id`, `exam_time`,
+        INSERT INTO `exam` (`user_id`,`exam_name`, `specialty_id`, `examination_id`, `exam_time`,
         `start_time`, `end_time`, `up_time` ,`start_timeC` ,`end_timeC`)
-        VALUES (#{exam_name}, #{specialty_id}, #{examination_id}, #{exam_time}, #{start_time},
+        VALUES (#{user_id},#{exam_name}, #{specialty_id}, #{examination_id}, #{exam_time}, #{start_time},
         #{end_time}, now() ,#{start_timeC} ,#{end_timeC});
     </insert>
 
@@ -33,6 +33,7 @@
         INNER JOIN `specialty` l ON e.`specialty_id`=l.`id`
         INNER JOIN `examination` x ON e.`examination_id`=x.`id`
         <where>
+            e.`user_id`=#{user_id}
             <if test="exam_name!=null and exam_name!=''">
                 e.`exam_name`like concat("%",#{exam_name},"%")
             </if>
@@ -45,6 +46,7 @@
     <select id="Total" parameterType="java.util.Map" resultType="long">
         SELECT COUNT(*) FROM `exam`
         <where>
+            `user_id`=#{user_id}
             <if test="exam_name!=null and exam_name!=''">
                 `exam_name`like concat("%",#{exam_name},"%")
             </if>
@@ -58,6 +60,7 @@
         `specialty_name`, x.`examination_name` as `examination_name` FROM `exam` e
         INNER JOIN `specialty` l ON e.`specialty_id`=l.`id`
         INNER JOIN `examination` x ON e.`examination_id`=x.`id`
+        WHERE e.`user_id`=#{user_id}
         ORDER BY e.`up_time` DESC
         limit 1;
     </select>

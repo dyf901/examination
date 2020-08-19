@@ -91,7 +91,7 @@ public class QuestionsController {
 
     @ApiOperation(value = "批量导入试题",notes = "")
     @PostMapping("/ImportQuestions")
-    public boolean addUser(@RequestParam("file") MultipartFile file) throws Exception {
+    public boolean addUser(@RequestParam("file") MultipartFile file,@RequestBody Map map) throws Exception {
         boolean notNull = false;
         String fileName = file.getOriginalFilename();
         List<Questions> questionsList = new ArrayList<Questions>();
@@ -128,7 +128,7 @@ public class QuestionsController {
             questions = new Questions();
 
             String knowledge1 = row.getCell(0).getStringCellValue();//知识
-            List<Knowledge> knowledgeList = knowledgeService.SelectKnowledge();
+            List<Knowledge> knowledgeList = knowledgeService.SelectKnowledge(map);
             int knowledge_id = 0;
             for (int i = 0; i < knowledgeList.size(); i++) {
                 Knowledge knowledge = knowledgeList.get(i);
@@ -138,7 +138,7 @@ public class QuestionsController {
             }
 
             String specialty1 = row.getCell(1).getStringCellValue();//专业
-            List<Specialty> specialtyList = specialtyService.SelectSpecialty();
+            List<Specialty> specialtyList = specialtyService.SelectSpecialty(map);
             int specialty_id = 0;
             for (int i = 0; i < specialtyList.size(); i++) {
                 Specialty specialty = specialtyList.get(i);

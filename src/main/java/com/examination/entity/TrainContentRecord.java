@@ -10,6 +10,9 @@ public class TrainContentRecord {
     @ApiModelProperty(value = "展馆培训记录id" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "员工姓名" , name = "name")
     private String name;
 
@@ -35,8 +38,9 @@ public class TrainContentRecord {
         super();
     }
 
-    public TrainContentRecord(int id, String name, String card, String sex, String age, String img, String uptime, String content) {
+    public TrainContentRecord(int id, int user_id, String name, String card, String sex, String age, String img, String uptime, String content) {
         this.id = id;
+        this.user_id = user_id;
         this.name = name;
         this.card = card;
         this.sex = sex;
@@ -110,10 +114,19 @@ public class TrainContentRecord {
         this.card = card;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", name='" + name + '\'' +
                 ", card='" + card + '\'' +
                 ", sex='" + sex + '\'' +

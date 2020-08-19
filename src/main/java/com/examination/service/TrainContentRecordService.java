@@ -34,7 +34,7 @@ public class TrainContentRecordService implements TrainContentRecordDao {
     }
 
     @Override
-    public long Total() {
-        return trainContentRecordDao.Total();
+    public long Total(Map map) {
+        return trainContentRecordDao.Total(map);
     }
 }

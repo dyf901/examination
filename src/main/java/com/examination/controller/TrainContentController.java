@@ -27,7 +27,7 @@ public class TrainContentController {
     @ApiOperation(value = "查询全部展馆体验" , notes = "")
     @PostMapping("/FindTrainContentAll")
     public List<TrainContent> FindTrainContentAll(@RequestBody Map map) {
-        return trainContentService.FindTrainContentAll();
+        return trainContentService.FindTrainContentAll(map);
     }
 
     @ApiOperation(value = "增加我的展馆培训信息" , notes = "")

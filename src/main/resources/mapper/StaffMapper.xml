@@ -5,14 +5,14 @@
 <mapper namespace="com.examination.dao.StaffDao">
     <!--增加员工信息-->
     <insert id="InsertStaff" parameterType="java.util.Map">
-      INSERT INTO `staff`(`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype_id`, `entry_time`)
-      VALUES ( #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype_id}, #{entry_time});
+      INSERT INTO `staff`(`user_id`,`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype_id`, `entry_time`)
+      VALUES (#{user_id}, #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype_id}, #{entry_time});
     </insert>
 
     <!--增加员工信息S-->
     <insert id="InsertStaffS" parameterType="com.examination.entity.Staff">
-      INSERT INTO `staff`(`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype_id`, `entry_time`)
-      VALUES ( #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype_id}, #{entry_time});
+      INSERT INTO `staff`(`user_id`,`staff_name`, `staff_age`, `staff_img`, `staff_sex`, `staff_nation`, `staff_card`, `staff_address`, `staff_province`, `staff_phone`, `worktype_id`, `entry_time`)
+      VALUES (#{user_id}, #{staff_name}, #{staff_age}, #{staff_img}, #{staff_sex}, #{staff_nation}, #{staff_card}, #{staff_address}, #{staff_province}, #{staff_phone}, #{worktype_id}, #{entry_time});
     </insert>
 
     <!--删除员工信息-->
@@ -94,6 +94,7 @@
         s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,s.`password`,w.`worktype_name` AS `worktype_name` FROM `staff` s
         left JOIN `worktype` w on s.`worktype_id`=w.`id`
         <where>
+            s.`user_id`=#{user_id}
             <if test="staff_name!=null and staff_name!=''">
                 s.`staff_name` like concat("%",#{staff_name},"%")
             </if>
@@ -115,6 +116,7 @@
     <select id="Total" parameterType="java.util.Map" resultType="long">
         SELECT COUNT(id) FROM `staff`
         <where>
+            `user_id`=#{user_id}
             <if test="staff_name!=null and staff_name!=''">
                 `staff_name` like concat("%",#{staff_name},"%")
             </if>
@@ -132,7 +134,7 @@
 
     <!--根据staff_phone查询员工信息-->
     <select id="FindStaffByStaffPhone" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
-        SELECT s.`id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
+        SELECT s.`id`,s.`user_id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
         s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,s.`password`,w.`worktype_name` AS `worktype_name` FROM `staff` s
         left JOIN `worktype` w on s.`worktype_id`=w.`id`
         WHERE s.`staff_phone`=#{staff_phone}
@@ -140,7 +142,7 @@
 
     <!--根据staff_phone查询员工信息-->
     <select id="FindStaffByStaffCard" parameterType="java.util.Map" resultType="com.examination.entity.Staff">
-        SELECT s.`id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
+        SELECT s.`id`,s.`user_id`, s.`staff_name`, s.`staff_age`, s.`staff_img`, s.`staff_sex`, s.`staff_nation`, s.`staff_card`, s.`staff_address`,
         s.`staff_province`, s.`staff_phone`, s.`worktype_id`, s.`entry_time`,s.`password`,w.`worktype_name` AS `worktype_name` FROM `staff` s
         left JOIN `worktype` w on s.`worktype_id`=w.`id`
         WHERE s.`staff_card`=#{staff_card}
@@ -153,6 +155,6 @@
 
     <!--统计总数-->
     <select id="CountAll"  resultType="int">
-        SELECT COUNT(*) FROM `staff`
+        SELECT COUNT(*) FROM `staff` WHERE `user_id`=#{user_id}
     </select>
 </mapper>

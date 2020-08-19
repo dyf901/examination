@@ -5,19 +5,19 @@
 <mapper namespace="com.examination.dao.QuestionsDao">
     <!--增加题目-->
     <insert id="InsertQuestions" parameterType="java.util.Map">
-        INSERT INTO `questions` (`knowledge_id`, `specialty_id`, `questions_type`,
+        INSERT INTO `questions` (`user_id`,`knowledge_id`, `specialty_id`, `questions_type`,
         `questions_content`, `select_A`, `select_B`, `select_C`, `select_D`, `select_answer`, `judge_answer`,
         `gap_answer`, `short_answer`)
-        VALUES (#{knowledge_id}, #{specialty_id}, #{questions_type}, #{questions_content}, #{select_A},
+        VALUES (#{user_id},#{knowledge_id}, #{specialty_id}, #{questions_type}, #{questions_content}, #{select_A},
         #{select_B}, #{select_C}, #{select_D}, #{select_answer}, #{judge_answer}, #{gap_answer}, #{short_answer});
     </insert>
 
     <!--增加题目-->
     <insert id="InsertQuestionsQ" parameterType="com.examination.entity.Questions">
-        INSERT INTO `questions` (`knowledge_id`, `specialty_id`, `questions_type`,
+        INSERT INTO `questions` (`user_id`,`knowledge_id`, `specialty_id`, `questions_type`,
         `questions_content`, `select_A`, `select_B`, `select_C`, `select_D`, `select_answer`, `judge_answer`,
         `gap_answer`, `short_answer`)
-        VALUES (#{knowledge_id}, #{specialty_id}, #{questions_type}, #{questions_content}, #{select_A},
+        VALUES (#{user_id} ,#{knowledge_id}, #{specialty_id}, #{questions_type}, #{questions_content}, #{select_A},
         #{select_B}, #{select_C}, #{select_D}, #{select_answer}, #{judge_answer}, #{gap_answer}, #{short_answer});
     </insert>
 
@@ -43,6 +43,7 @@
         INNER JOIN `knowledge` k ON q.`knowledge_id`=k.`id`
         INNER JOIN `specialty` s ON q.`specialty_id`=s.`id`
         <where>
+            q.`user_id`=#{user_id}
             <if test="knowledge_id!=null and knowledge_id!=''">
                 and q.`knowledge_id`=#{knowledge_id}
             </if>
@@ -60,6 +61,7 @@
     <select id="Total" parameterType="java.util.Map" resultType="long">
         SELECT COUNT(*) FROM `questions`
         <where>
+            `user_id`=#{user_id}
             <if test="knowledge_id!=null and knowledge_id!=''">
                 and `knowledge_id`=#{knowledge_id}
             </if>
@@ -84,30 +86,31 @@
 
     <!--根据题目类型查询随机查询题目返回id数组-->
     <select id="FindQuestionByQuestionTypeX" parameterType="java.util.Map" resultType="int">
-        SELECT `id` FROM `questions` WHERE questions_type='选择题' ORDER BY rand() limit #{countX};
+        SELECT `id` FROM `questions` WHERE questions_type='选择题' and `user_id`=#{user_id} ORDER BY rand() limit #{countX};
     </select>
 
     <select id="FindQuestionByQuestionTypeP" parameterType="java.util.Map" resultType="int">
-        SELECT `id` FROM `questions` WHERE questions_type='判断题' ORDER BY rand() limit #{countP};
+        SELECT `id` FROM `questions` WHERE questions_type='判断题' and `user_id`=#{user_id} ORDER BY rand() limit #{countP};
     </select>
 
     <select id="FindQuestionByQuestionTypeT" parameterType="java.util.Map" resultType="int">
-        SELECT `id` FROM `questions` WHERE questions_type='填空题' ORDER BY rand() limit #{countT};
+        SELECT `id` FROM `questions` WHERE questions_type='填空题' and `user_id`=#{user_id} ORDER BY rand() limit #{countT};
     </select>
 
     <select id="FindQuestionByQuestionTypeJ" parameterType="java.util.Map" resultType="int">
-        SELECT `id` FROM `questions` WHERE questions_type='简答题' ORDER BY rand() limit #{countJ};
+        SELECT `id` FROM `questions` WHERE questions_type='简答题' and `user_id`=#{user_id} ORDER BY rand() limit #{countJ};
     </select>
 
     <!--统计试题总数-->
     <select id="CountAll" resultType="int">
-        SELECT COUNT(*) FROM `questions`
+        SELECT COUNT(*) FROM `questions` WHERE `user_id`=#{user_id}
     </select>
 
     <select id="CountByKnowledge" resultType="com.examination.entity.Questions">
         SELECT q.`knowledge_id`, k.`knowledge_name` as `knowledge_name`,COUNT(*) as `count` FROM `questions` q
         INNER JOIN `knowledge` k ON q.`knowledge_id`=k.`id`
         INNER JOIN `specialty` s ON q.`specialty_id`=s.`id`
+        WHERE q.`user_id`=#{user_id}
         GROUP BY q.`knowledge_id`
     </select>
 
@@ -115,6 +118,7 @@
         SELECT q.`specialty_id`,s.`specialty_name` as `specialty_name`,COUNT(*) as `count` FROM `questions` q
         INNER JOIN `knowledge` k ON q.`knowledge_id`=k.`id`
         INNER JOIN `specialty` s ON q.`specialty_id`=s.`id`
+        WHERE q.`user_id`=#{user_id}
         GROUP BY q.`specialty_id`
     </select>
 </mapper>

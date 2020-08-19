@@ -12,5 +12,5 @@ public interface TrainCommonalityDao {
     //统计总数
     long Total(Map map);
 
-    int CountAll();
+    int CountAll(Map map);
 }

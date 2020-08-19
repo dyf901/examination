@@ -19,5 +19,5 @@ public interface TrainContentRecordDao {
     List<TrainContentRecord> FindTrainContentRecord(Map map);
 
     //统计总数
-    long Total();
+    long Total(Map map);
 }

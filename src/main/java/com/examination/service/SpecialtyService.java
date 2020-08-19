@@ -39,13 +39,13 @@ public class SpecialtyService implements SpecialtyDao {
 
     //统计总数
     @Override
-    public long Total() {
-        return specialtyDao.Total();
+    public long Total(Map map) {
+        return specialtyDao.Total(map);
     }
 
     //下拉框查询专业类型
     @Override
-    public List<Specialty> SelectSpecialty() {
-        return specialtyDao.SelectSpecialty();
+    public List<Specialty> SelectSpecialty(Map map) {
+        return specialtyDao.SelectSpecialty(map);
     }
 }

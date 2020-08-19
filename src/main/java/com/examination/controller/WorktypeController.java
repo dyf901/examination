@@ -22,6 +22,7 @@ public class WorktypeController {
     @ApiOperation(value = "增加工种" , notes = "测试数据:{\"worktype_name\":\"电工\",\"content\":\"主要负责工地电力工作\",\"section_id\":1,\"station_id\":1,\"sub_id\":1,\"remark\":\"电力维护安全很重要\"}")
     @PostMapping("/InsertWorktype")
     public boolean InsertWorktype(@RequestBody Map map) {
+        System.out.println(map);
         return worktypeService.InsertWorktype(map) == 1;
     }
 
@@ -50,7 +51,7 @@ public class WorktypeController {
 
     @ApiOperation(value = "下拉框查询工种信息" , notes = "测试数据:{\"section_id\":1,\"sub_id\":1}")
     @PostMapping("/SelectWorktype")
-    public List<Worktype> SelectWorktype() {
-        return worktypeService.SelectWorktype();
+    public List<Worktype> SelectWorktype(@RequestBody Map map) {
+        return worktypeService.SelectWorktype(map);
     }
 }

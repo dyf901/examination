@@ -10,6 +10,9 @@ import io.swagger.annotations.ApiModelProperty;
     @ApiModelProperty(value = "专业id" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "专业名称" , name = "specialty_name")
     private String specialty_name;
 
@@ -17,8 +20,9 @@ import io.swagger.annotations.ApiModelProperty;
         super();
     }
 
-    public Specialty(int id, String specialty_name) {
+    public Specialty(int id, int user_id, String specialty_name) {
         this.id = id;
+        this.user_id = user_id;
         this.specialty_name = specialty_name;
     }
 
@@ -42,6 +46,7 @@ import io.swagger.annotations.ApiModelProperty;
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", specialty_name='" + specialty_name + '\'' +
                 '}';
     }

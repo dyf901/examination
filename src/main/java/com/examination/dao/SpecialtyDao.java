@@ -19,8 +19,8 @@ public interface SpecialtyDao {
     List<Specialty> FindSpecialty(Map map);
 
     //统计总数
-    long Total();
+    long Total(Map map);
 
     //下拉框查询专业类型
-    List<Specialty> SelectSpecialty();
+    List<Specialty> SelectSpecialty(Map map);
 }

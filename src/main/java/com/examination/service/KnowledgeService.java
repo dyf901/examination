@@ -39,13 +39,13 @@ public class KnowledgeService implements KnowledgeDao {
 
     //统计总数
     @Override
-    public long Total() {
-        return knowledgeDao.Total();
+    public long Total(Map map) {
+        return knowledgeDao.Total(map);
     }
 
     //下拉框知识类型
     @Override
-    public List<Knowledge> SelectKnowledge() {
-        return knowledgeDao.SelectKnowledge();
+    public List<Knowledge> SelectKnowledge(Map map) {
+        return knowledgeDao.SelectKnowledge(map);
     }
 }

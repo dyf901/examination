@@ -10,6 +10,9 @@ public class Worktype {
     @ApiModelProperty(value = "考试id" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "发布时间" , name = "worktype_name")
     private String worktype_name;
 
@@ -23,8 +26,9 @@ public class Worktype {
         super();
     }
 
-    public Worktype(int id, String worktype_name, String content, String remark) {
+    public Worktype(int id, int user_id, String worktype_name, String content, String remark) {
         this.id = id;
+        this.user_id = user_id;
         this.worktype_name = worktype_name;
         this.content = content;
         this.remark = remark;
@@ -62,10 +66,19 @@ public class Worktype {
         this.remark = remark;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", worktype_name='" + worktype_name + '\'' +
                 ", content='" + content + '\'' +
                 ", remark='" + remark + '\'' +

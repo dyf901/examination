@@ -5,9 +5,9 @@
 <mapper namespace="com.examination.dao.ExaminationDao">
     <!--增加试卷-->
     <insert id="InsertExamination" parameterType="java.util.Map">
-        INSERT INTO `examination` (`specialty_id`, `examination_name`, `questions`,
+        INSERT INTO `examination` (`user_id`,`specialty_id`, `examination_name`, `questions`,
         `select_count`, `judge_count`, `gap_count`, `short_count`, `exam_time`)
-        VALUES (#{specialty_id}, #{examination_name}, #{questions}, #{select_count}, #{judge_count},
+        VALUES (#{user_id}, #{specialty_id}, #{examination_name}, #{questions}, #{select_count}, #{judge_count},
         #{gap_count}, #{short_count}, #{exam_time});
     </insert>
 
@@ -23,12 +23,13 @@
         e.`judge_count`, e.`gap_count`, e.`short_count`, e.`exam_time`, t.`specialty_name` as `specialty_name` FROM
         `examination` e
         INNER JOIN `specialty` t ON e.`specialty_id`=t.`id`
+        WHERE e.`user_id`=#{user_id}
         limit #{page},#{pageSize}
     </select>
 
     <!--统计总数-->
     <select id="Total" parameterType="java.util.Map" resultType="long">
-        SELECT COUNT(*) FROM `examination`
+        SELECT COUNT(*) FROM `examination` WHERE `user_id`=#{user_id}
     </select>
 
     <!--根据id查询试卷信息-->
@@ -42,12 +43,12 @@
 
     <!--下拉框查询试卷信息-->
     <select id="SelectExamination" parameterType="java.util.Map" resultType="com.examination.entity.Examination">
-        SELECT `id`, `examination_name` FROM `smart_site`.`examination`
+        SELECT `id`, `examination_name` FROM `examination` WHERE `user_id`=#{user_id}
     </select>
 
     <!--统计总数-->
     <select id="CountAll" parameterType="java.util.Map" resultType="int">
-        SELECT COUNT(*) FROM `examination`
+        SELECT COUNT(*) FROM `examination` WHERE `user_id`=#{user_id}
     </select>
 </mapper>
 

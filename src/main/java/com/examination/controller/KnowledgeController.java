@@ -43,14 +43,14 @@ public class KnowledgeController {
         Page<Knowledge> page = new Page<Knowledge>();
         page.setPageNo((Integer) map.get("pageNo"));
         page.setPageSize((Integer) map.get("pageSize"));
-        page.setTotal(knowledgeService.Total());
+        page.setTotal(knowledgeService.Total(map));
         page.setItems(knowledgeService.FindKnowledge(map));
         return page;
     }
 
     @ApiOperation(value = "下拉框查询知识分类" , notes = "传参:section_id")
     @PostMapping("/SelectKnowledge")
-    public List<Knowledge> SelectKnowledge() {
-        return knowledgeService.SelectKnowledge();
+    public List<Knowledge> SelectKnowledge(@RequestBody Map map) {
+        return knowledgeService.SelectKnowledge(map);
     }
 }

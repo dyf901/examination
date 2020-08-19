@@ -5,8 +5,8 @@
 <mapper namespace="com.examination.dao.WorktypeDao">
     <!--增加工种-->
     <insert id="InsertWorktype" parameterType="java.util.Map">
-        INSERT INTO `worktype` (`worktype_name`, `content`, `remark`)
-        VALUES (#{worktype_name}, #{content}, #{remark});
+        INSERT INTO `worktype` (`user_id`, `worktype_name`, `content`, `remark`)
+        VALUES (#{user_id}, #{worktype_name}, #{content}, #{remark});
     </insert>
 
     <!--删除工种-->
@@ -25,8 +25,9 @@
         <bind name="page" value="pageSize*(pageNo-1)"></bind>
         SELECT `id`, `worktype_name`, `content`, `remark` FROM `worktype`
         <where>
+            `user_id`=#{user_id}
             <if test="worktype_name!=null and worktype_name!=''">
-                `worktype_name`like concat("%",#{worktype_name},"%")
+                and `worktype_name`like concat("%",#{worktype_name},"%")
             </if>
         </where>
         limit #{page},#{pageSize}
@@ -36,15 +37,16 @@
     <select id="Total" parameterType="java.util.Map" resultType="long">
         SELECT COUNT(*) FROM `worktype`
         <where>
+            `user_id`=#{user_id}
             <if test="worktype_name!=null and worktype_name!=''">
-                `worktype_name`like concat("%",#{worktype_name},"%")
+                and `worktype_name`like concat("%",#{worktype_name},"%")
             </if>
         </where>
     </select>
 
     <!--下拉框查询工种信息-->
     <select id="SelectWorktype" resultType="com.examination.entity.Worktype">
-        SELECT `id`,`worktype_name` FROM `worktype`
+        SELECT `id`,`worktype_name` FROM `worktype` WHERE `user_id`=#{user_id}
     </select>
 
     <!--根据worktype_id查询工种信息-->

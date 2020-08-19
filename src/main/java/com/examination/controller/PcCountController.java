@@ -50,7 +50,7 @@ public class PcCountController {
     @ApiOperation(value = "学员总数" , notes = "测试数据:{\"section_id\":2}")
     @PostMapping("/CountXY")
     public int CountXY(@RequestBody Map map) {
-        return staffService.CountAll();
+        return staffService.CountAll(map);
     }
 
     @ApiOperation(value = "培训课程总数" , notes = "测试数据:{\"section_id\":2}")
@@ -61,15 +61,15 @@ public class PcCountController {
 
     @ApiOperation(value = "公共课程总数" , notes = "")
     @PostMapping("/CountGGKC")
-    public int CountGGKC() {
-        return trainCommonalityService.CountAll();
+    public int CountGGKC(@RequestBody Map map) {
+        return trainCommonalityService.CountAll(map);
     }
 
     @ApiOperation(value = "考试合格率" , notes = "测试数据:{\"section_id\":2}")
     @PostMapping("/CountKSHGL")
     public Double CountKSHGL(@RequestBody Map map) {
-        double i = examRecordService.CountT();
-        double l = examRecordService.CountAll();
+        double i = examRecordService.CountT(map);
+        double l = examRecordService.CountAll(map);
         double s = (i / l) * 100;
         return s;
     }
@@ -77,12 +77,12 @@ public class PcCountController {
     @ApiOperation(value = "专业知识分布" , notes = "测试数据:{\"section_id\":2}")
     @PostMapping("/CountByKnowledge")
     public List<Questions> CountByKnowledge(@RequestBody Map map) {
-        return questionsService.CountByKnowledge();
+        return questionsService.CountByKnowledge(map);
     }
 
     @ApiOperation(value = "专业知识分布" , notes = "测试数据:{\"section_id\":2}")
     @PostMapping("/CountBySpecialty")
     public List<Questions> CountBySpecialty(@RequestBody Map map) {
-        return questionsService.CountBySpecialty();
+        return questionsService.CountBySpecialty(map);
     }
 }

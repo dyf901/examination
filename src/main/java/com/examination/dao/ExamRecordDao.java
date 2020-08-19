@@ -17,7 +17,7 @@ public interface ExamRecordDao {
     List<ExamRecord> FindExamRecord(Map map);
 
     //统计总数
-    long Total();
+    long Total(Map map);
 
     //查询个人考试记录
     List<ExamRecord> FindExamRecordByStaffId(Map map);
@@ -25,7 +25,7 @@ public interface ExamRecordDao {
     //查询个人考试记录
     List<ExamRecord> FindExamRecordByStaffIdALL(Map map);
 
-    int CountT();
+    int CountT(Map map);
 
-    int CountAll();
+    int CountAll(Map map);
 }

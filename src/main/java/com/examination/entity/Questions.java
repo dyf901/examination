@@ -10,6 +10,9 @@ public class Questions {
     @ApiModelProperty(value = "题目id" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "知识id" , name = "knowledge_id")
     private int knowledge_id;
 
@@ -59,8 +62,9 @@ public class Questions {
         super();
     }
 
-    public Questions(int id, int knowledge_id, int specialty_id, int count, String questions_type, String knowledge_name, String specialty_name, String questions_content, String select_A, String select_B, String select_C, String select_D, String select_answer, String gap_answer, String short_answer, Boolean judge_answer) {
+    public Questions(int id, int user_id, int knowledge_id, int specialty_id, int count, String questions_type, String knowledge_name, String specialty_name, String questions_content, String select_A, String select_B, String select_C, String select_D, String select_answer, String gap_answer, String short_answer, Boolean judge_answer) {
         this.id = id;
+        this.user_id = user_id;
         this.knowledge_id = knowledge_id;
         this.specialty_id = specialty_id;
         this.count = count;
@@ -206,10 +210,19 @@ public class Questions {
         this.count = count;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", knowledge_id=" + knowledge_id +
                 ", specialty_id=" + specialty_id +
                 ", count=" + count +

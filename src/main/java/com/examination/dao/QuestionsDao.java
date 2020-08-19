@@ -40,8 +40,8 @@ public interface QuestionsDao {
     int CountAll();
 
     //按照知识分类
-    List<Questions> CountByKnowledge();
+    List<Questions> CountByKnowledge(Map map);
 
     //按照专业分类
-    List<Questions> CountBySpecialty();
+    List<Questions> CountBySpecialty(Map map);
 }

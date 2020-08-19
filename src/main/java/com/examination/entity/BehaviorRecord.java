@@ -26,6 +26,9 @@ public class BehaviorRecord {
     @ApiModelProperty(value = "行为记录id", name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "员工id", name = "staff_id")
     private int staff_id;
 
@@ -48,8 +51,9 @@ public class BehaviorRecord {
         super();
     }
 
-    public BehaviorRecord(int id, int staff_id, int behavior_id, String uptime, String remark, String staff_name, String behavior_name) {
+    public BehaviorRecord(int id, int user_id, int staff_id, int behavior_id, String uptime, String remark, String staff_name, String behavior_name) {
         this.id = id;
+        this.user_id = user_id;
         this.staff_id = staff_id;
         this.behavior_id = behavior_id;
         this.uptime = uptime;
@@ -114,10 +118,19 @@ public class BehaviorRecord {
         this.behavior_name = behavior_name;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", staff_id=" + staff_id +
                 ", behavior_id=" + behavior_id +
                 ", uptime='" + uptime + '\'' +

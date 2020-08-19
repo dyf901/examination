@@ -10,6 +10,9 @@ public class Staff {
     @ApiModelProperty(value = "员工id" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "年龄" , name = "staff_age")
     private String staff_age;
 
@@ -59,8 +62,9 @@ public class Staff {
         super();
     }
 
-    public Staff(int id, String staff_age, String staff_name, String staff_img, String staff_sex, String staff_nation, String staff_card, String staff_address, String staff_province, String staff_phone, int worktype_id, String worktype_name, String entry_time, String password, String state, String train) {
+    public Staff(int id, int user_id, String staff_age, String staff_name, String staff_img, String staff_sex, String staff_nation, String staff_card, String staff_address, String staff_province, String staff_phone, int worktype_id, String worktype_name, String entry_time, String password, String state, String train) {
         this.id = id;
+        this.user_id = user_id;
         this.staff_age = staff_age;
         this.staff_name = staff_name;
         this.staff_img = staff_img;
@@ -206,10 +210,19 @@ public class Staff {
         this.train = train;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
-        return "{" +
+        return "Staff{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", staff_age='" + staff_age + '\'' +
                 ", staff_name='" + staff_name + '\'' +
                 ", staff_img='" + staff_img + '\'' +

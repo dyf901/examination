@@ -82,12 +82,12 @@ public class QuestionsService implements QuestionsDao {
     }
 
     @Override
-    public List<Questions> CountByKnowledge() {
-        return questionsDao.CountByKnowledge();
+    public List<Questions> CountByKnowledge(Map map) {
+        return questionsDao.CountByKnowledge(map);
     }
 
     @Override
-    public List<Questions> CountBySpecialty() {
-        return questionsDao.CountBySpecialty();
+    public List<Questions> CountBySpecialty(Map map) {
+        return questionsDao.CountBySpecialty(map);
     }
 }

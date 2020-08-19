@@ -43,14 +43,14 @@ public class SpecialtyController {
         Page<Specialty> page = new Page<Specialty>();
         page.setPageNo((Integer) map.get("pageNo"));
         page.setPageSize((Integer) map.get("pageSize"));
-        page.setTotal(specialtyService.Total());
+        page.setTotal(specialtyService.Total(map));
         page.setItems(specialtyService.FindSpecialty(map));
         return page;
     }
 
     @ApiOperation(value = "下拉框查询专业分类" , notes = "传参:section_id")
     @PostMapping("/SelectSpecialty")
-    public List<Specialty> SelectSpecialty() {
-        return specialtyService.SelectSpecialty();
+    public List<Specialty> SelectSpecialty(@RequestBody Map map) {
+        return specialtyService.SelectSpecialty(map);
     }
 }

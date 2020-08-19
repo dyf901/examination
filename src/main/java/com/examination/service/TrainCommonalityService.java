@@ -26,7 +26,7 @@ public class TrainCommonalityService implements TrainCommonalityDao {
     }
 
     @Override
-    public int CountAll() {
-        return trainCommonalityDao.CountAll();
+    public int CountAll(Map map) {
+        return trainCommonalityDao.CountAll(map);
     }
 }

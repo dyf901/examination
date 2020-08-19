@@ -5,7 +5,7 @@
 <mapper namespace="com.examination.dao.TtypeDao">
     <!--增加我的培训类型-->
     <insert id="InsertTtype" parameterType="java.util.Map">
-        INSERT INTO `ttype`(`Ttype_name`) VALUES (#{Ttype_name});
+        INSERT INTO `ttype`(`user_id`,`Ttype_name`) VALUES (#{user_id},#{Ttype_name});
     </insert>
 
     <!--删除我的配信类型-->
@@ -20,6 +20,6 @@
 
     <!--查询我的培训类型-->
     <select id="FindTtype" resultType="com.examination.entity.Ttype">
-        SELECT `id`, `Ttype_name` FROM `ttype`
+        SELECT `id`, `Ttype_name` FROM `ttype` WHERE `user_id`=#{user_id}
     </select>
 </mapper>

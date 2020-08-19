@@ -94,7 +94,7 @@ public class StaffController {
 
     @ApiOperation(value = "批量导入", notes = "")
     @PostMapping("/import")
-    public boolean addUser(@RequestParam("file") MultipartFile file) throws Exception {
+    public boolean addUser(@RequestParam("file") MultipartFile file,@RequestBody Map map) throws Exception {
         boolean notNull = false;
         String fileName = file.getOriginalFilename();
         List<Staff> staffList = new ArrayList<Staff>();
@@ -150,7 +150,7 @@ public class StaffController {
             String worktype_name = row.getCell(7).getStringCellValue();//工种
 
             //根据表格里面的内容判断worktype_id多少
-            List<Worktype> worktypeList = worktypeService.SelectWorktype();
+            List<Worktype> worktypeList = worktypeService.SelectWorktype(map);
             int worktype_id = 0;
             for (int i = 0; i < worktypeList.size(); i++) {
                 Worktype worktype = worktypeList.get(i);
@@ -179,6 +179,7 @@ public class StaffController {
             staff.setWorktype_id(worktype_id);
             staff.setEntry_time(time);
             staff.setStaff_province(province);
+            staff.setUser_id((Integer) map.get("user_id"));
             //添加到数组里
             staffList.add(staff);
         }

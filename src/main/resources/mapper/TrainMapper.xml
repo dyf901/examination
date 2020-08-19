@@ -5,7 +5,7 @@
 <mapper namespace="com.examination.dao.TrainDao">
     <!--增加培训内容-->
     <insert id="InsertTrain" parameterType="java.util.Map">
-        INSERT INTO `train` (`train_name`, `content`, `video_url`, `Ttype_id`, `img`) VALUES (#{train_name},
+        INSERT INTO `train` (`user_id`,`train_name`, `content`, `video_url`, `Ttype_id`, `img`) VALUES (#{user_id},#{train_name},
         #{content},#{video_url}, #{Ttype_id}, #{img});
     </insert>
 
@@ -26,8 +26,9 @@
         SELECT t.`id`, t.`train_name`, t.`content`,t.`video_url`, t.`Ttype_id`, t.`img`, p.`Ttype_name` AS `Ttype_name` FROM `train` t
         left JOIN `ttype` p ON t.`Ttype_id`=p.`id`
         <where>
+            t.`user_id`=#{user_id}
             <if test="train_name!=null and train_name!=''">
-                t.`train_name` like concat("%",#{train_name},"%")
+                and t.`train_name` like concat("%",#{train_name},"%")
             </if>
             <if test="Ttype_id!=null and Ttype_id!=''">
                 and t.`Ttype_id`=#{Ttype_id}
@@ -40,8 +41,9 @@
     <select id="Total" parameterType="java.util.Map" resultType="long">
         SELECT COUNT(*) FROM `train`
         <where>
+            `user_id`=#{user_id}
             <if test="train_name!=null and train_name!=''">
-                `train_name` like concat("%",#{train_name},"%")
+                and `train_name` like concat("%",#{train_name},"%")
             </if>
             <if test="Ttype_id!=null and Ttype_id!=''">
                 and `Ttype_id`=#{Ttype_id}
@@ -60,10 +62,11 @@
     <select id="FindTrainAll" parameterType="java.util.Map" resultType="com.examination.entity.Train">
         SELECT t.`id`, t.`Ttype_id`, t.`train_name`, t.`content`, t.`video_url`, t.`Ttype_id`, t.`img`, s.`Ttype_name` as `Ttype_name` FROM `train` t
         left JOIN `ttype` s ON t.`Ttype_id`=s.`id`
+        WHERE t.`user_id`=#{user_id}
     </select>
 
     <!--统计总数-->
     <select id="CountAll" parameterType="java.util.Map" resultType="int">
-        SELECT COUNT(*) FROM `train`
+        SELECT COUNT(*) FROM `train` WHERE `user_id`=#{user_id}
     </select>
 </mapper>

@@ -19,8 +19,8 @@ public class TrainContentService implements TrainContentDao {
     }
 
     @Override
-    public List<TrainContent> FindTrainContentAll() {
-        return trainContentDao.FindTrainContentAll();
+    public List<TrainContent> FindTrainContentAll(Map map) {
+        return trainContentDao.FindTrainContentAll(map);
     }
 
     @Override

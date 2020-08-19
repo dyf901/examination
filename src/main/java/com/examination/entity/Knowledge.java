@@ -10,6 +10,9 @@ public class Knowledge {
     @ApiModelProperty(value = "题目id" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "知识名称" , name = "knowledge_name")
     private String knowledge_name;
 
@@ -38,10 +41,19 @@ public class Knowledge {
         this.knowledge_name = knowledge_name;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", knowledge_name='" + knowledge_name + '\'' +
                 '}';
     }

@@ -22,6 +22,9 @@ public class Behavior {
     @ApiModelProperty(value = "员工id" , name = "id")
     private int id;
 
+    @ApiModelProperty(value = "用户id" , name = "user_id")
+    private int user_id;
+
     @ApiModelProperty(value = "行为类型名称" , name = "behavior_name")
     private String behavior_name;
 
@@ -35,8 +38,9 @@ public class Behavior {
         super();
     }
 
-    public Behavior(int id, String behavior_name, String detail, String remark) {
+    public Behavior(int id, int user_id, String behavior_name, String detail, String remark) {
         this.id = id;
+        this.user_id = user_id;
         this.behavior_name = behavior_name;
         this.detail = detail;
         this.remark = remark;
@@ -74,10 +78,19 @@ public class Behavior {
         this.remark = remark;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", behavior_name='" + behavior_name + '\'' +
                 ", detail='" + detail + '\'' +
                 ", remark='" + remark + '\'' +

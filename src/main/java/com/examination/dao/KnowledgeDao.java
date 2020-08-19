@@ -19,8 +19,8 @@ public interface KnowledgeDao {
     List<Knowledge> FindKnowledge(Map map);
 
     //统计总数
-    long Total();
+    long Total(Map map);
 
     //下拉框知识类型
-    List<Knowledge> SelectKnowledge();
+    List<Knowledge> SelectKnowledge(Map map);
 }
