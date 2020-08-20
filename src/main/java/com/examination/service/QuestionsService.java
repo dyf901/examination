@@ -77,8 +77,8 @@ public class QuestionsService implements QuestionsDao {
 
     //统计试题总数
     @Override
-    public int CountAll() {
-        return questionsDao.CountAll();
+    public int CountAll(Map map) {
+        return questionsDao.CountAll(map);
     }
 
     @Override

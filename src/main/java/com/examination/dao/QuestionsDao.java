@@ -37,7 +37,7 @@ public interface QuestionsDao {
     int[] FindQuestionByQuestionTypeJ(Map map);
 
     //统计题目总数
-    int CountAll();
+    int CountAll(Map map);
 
     //按照知识分类
     List<Questions> CountByKnowledge(Map map);

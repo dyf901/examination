@@ -38,7 +38,7 @@ public class PcCountController {
     @ApiOperation(value = "试题总数" , notes = "测试数据:{\"section_id\":2}")
     @PostMapping("/CountST")
     public int CountST(@RequestBody Map map) {
-        return questionsService.CountAll();
+        return questionsService.CountAll(map);
     }
 
     @ApiOperation(value = "试卷总数" , notes = "测试数据:{\"section_id\":2}")

@@ -1,6 +1,7 @@
 package com.examination.controller;
 
 import com.examination.entity.Staff;
+import com.examination.entity.User;
 import com.examination.entity.Worktype;
 import com.examination.service.StaffService;
 import com.examination.service.WorktypeService;
@@ -94,7 +95,9 @@ public class StaffController {
 
     @ApiOperation(value = "批量导入", notes = "")
     @PostMapping("/import")
-    public boolean addUser(@RequestParam("file") MultipartFile file,@RequestBody Map map) throws Exception {
+    public boolean addUser(@RequestParam("file") MultipartFile file,Integer user_id) throws Exception {
+        Map map = new HashMap();
+        map.put("user_id",user_id);
         boolean notNull = false;
         String fileName = file.getOriginalFilename();
         List<Staff> staffList = new ArrayList<Staff>();
@@ -132,6 +135,7 @@ public class StaffController {
             staff = new Staff();
 
             String name = row.getCell(0).getStringCellValue();//姓名
+            row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
             String age = row.getCell(1).getStringCellValue();//年龄
             String sex = row.getCell(2).getStringCellValue();//性别
             String nation = row.getCell(3).getStringCellValue();//民族

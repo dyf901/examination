@@ -91,7 +91,9 @@ public class QuestionsController {
 
     @ApiOperation(value = "批量导入试题",notes = "")
     @PostMapping("/ImportQuestions")
-    public boolean addUser(@RequestParam("file") MultipartFile file,@RequestBody Map map) throws Exception {
+    public boolean addUser(@RequestParam("file") MultipartFile file,Integer user_id) throws Exception {
+        Map map = new HashMap();
+        map.put("user_id",user_id);
         boolean notNull = false;
         String fileName = file.getOriginalFilename();
         List<Questions> questionsList = new ArrayList<Questions>();
@@ -150,14 +152,19 @@ public class QuestionsController {
             String questions_content = row.getCell(3).getStringCellValue();//题目内容
 
             if (questions_type.equals("选择题")){
+                row.getCell(4).setCellType(Cell.CELL_TYPE_STRING);
                 String select_A = row.getCell(4).getStringCellValue();//选择题A选项
 
+                row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
                 String select_B = row.getCell(5).getStringCellValue();//选择题B选项
 
+                row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);
                 String select_C = row.getCell(6).getStringCellValue();//选择题C选项
 
+                row.getCell(7).setCellType(Cell.CELL_TYPE_STRING);
                 String select_D = row.getCell(7).getStringCellValue();//选择题D选项
 
+                row.getCell(8).setCellType(Cell.CELL_TYPE_STRING);
                 String select_answer = row.getCell(8).getStringCellValue();//选择答案
 
                 questions.setSelect_A(select_A);
@@ -169,6 +176,7 @@ public class QuestionsController {
 
             if (questions_type.equals("判断题")){
 
+                row.getCell(4).setCellType(Cell.CELL_TYPE_STRING);
                 String judge_answer1 = row.getCell(4).getStringCellValue();//判断题答案(1 为true,0为false)
 
                 Boolean judge_answer = null;
@@ -191,7 +199,7 @@ public class QuestionsController {
             
         }
         for (Questions questions1 : questionsList) {
-            questionsService.InsertQuestionsQ(questions);
+            questionsService.InsertQuestionsQ(questions1);
         }
         return notNull;
     }

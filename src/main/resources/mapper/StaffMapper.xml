@@ -59,6 +59,9 @@
     <update id="UpdateStaffS" parameterType="com.examination.entity.Staff">
         update `staff`
         <trim prefix="SET" suffixOverrides=",">
+            <if test="user_id!=null and user_id!=''">
+                `user_id`=#{user_id},
+            </if>
             <if test="staff_name!=null and staff_name!=''">
                 `staff_name`=#{staff_name},
             </if>
